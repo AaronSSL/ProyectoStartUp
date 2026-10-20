@@ -1,0 +1,291 @@
+{
+ "tareas": [
+  {
+   "id": "T1",
+   "nombre": "Entrar con la empresa demo",
+   "ok": true,
+   "segundos": 0.2,
+   "acciones": 1,
+   "nota": "3 convocatorias de Bumeran listas"
+  },
+  {
+   "id": "T2",
+   "nombre": "Abrir el aviso de Analista de Cobranzas y analizar sus CVs",
+   "ok": true,
+   "segundos": 18.8,
+   "acciones": 2,
+   "nota": "Lucía Paredes Quispe > Carla Villanueva Ríos > Jorge Huamán Lima"
+  },
+  {
+   "id": "T3",
+   "nombre": "Revisar la evidencia y el perfil del mejor candidato",
+   "ok": true,
+   "segundos": 0.1,
+   "acciones": 1,
+   "nota": "evidencia + perfil visibles"
+  },
+  {
+   "id": "T4",
+   "nombre": "Invitar a entrevista al Top 3",
+   "ok": true,
+   "segundos": 0.3,
+   "acciones": 1,
+   "nota": "3 invitados marcados"
+  },
+  {
+   "id": "T5",
+   "nombre": "Transcribir y analizar la entrevista de Lucía",
+   "ok": true,
+   "segundos": 90.5,
+   "acciones": 3,
+   "nota": "puntaje 77"
+  },
+  {
+   "id": "T6",
+   "nombre": "Ir al minuto donde sustenta un requisito (▶ mm:ss)",
+   "ok": true,
+   "segundos": 0.8,
+   "acciones": 1,
+   "nota": "video en 24.4 s"
+  },
+  {
+   "id": "T7",
+   "nombre": "Registrar la decisión y exportar el resultado",
+   "ok": true,
+   "segundos": 0.2,
+   "acciones": 3,
+   "nota": "CSV Analista_de_Cobranzas_resultados.csv"
+  },
+  {
+   "id": "T8",
+   "nombre": "Solicitar la integración con LinkedIn a soporte",
+   "ok": true,
+   "segundos": 0.3,
+   "acciones": 7,
+   "nota": "vacío bloqueado=true, correo inválido bloqueado=true"
+  },
+  {
+   "id": "T9",
+   "nombre": "Esconder y mostrar el menú lateral",
+   "ok": true,
+   "segundos": 0.3,
+   "acciones": 2,
+   "nota": "menú plegado a 236 px"
+  }
+ ],
+ "accesibilidad": [
+  {
+   "pantalla": "Bienvenida",
+   "violaciones": [
+    {
+     "id": "landmark-one-main",
+     "impacto": "moderate",
+     "ayuda": "Document should have one main landmark",
+     "nodos": 1,
+     "ejemplo": "html"
+    },
+    {
+     "id": "region",
+     "impacto": "moderate",
+     "ayuda": "All page content should be contained by landmarks",
+     "nodos": 8,
+     "ejemplo": ".marca"
+    }
+   ]
+  },
+  {
+   "pantalla": "Convocatorias",
+   "violaciones": [
+    {
+     "id": "color-contrast",
+     "impacto": "serious",
+     "ayuda": "Elements must meet minimum color contrast ratio thresholds",
+     "nodos": 7,
+     "ejemplo": ".suave"
+    },
+    {
+     "id": "heading-order",
+     "impacto": "moderate",
+     "ayuda": "Heading levels should only increase by one",
+     "nodos": 1,
+     "ejemplo": "a[href=\"#/convocatoria/e5d5af5f8d80/cv\"] > .entre.fila > h3"
+    }
+   ]
+  },
+  {
+   "pantalla": "Parte 1 · CV",
+   "violaciones": [
+    {
+     "id": "color-contrast",
+     "impacto": "serious",
+     "ayuda": "Elements must meet minimum color contrast ratio thresholds",
+     "nodos": 17,
+     "ejemplo": "header > .fila > .suave"
+    },
+    {
+     "id": "empty-table-header",
+     "impacto": "minor",
+     "ayuda": "Table header text should not be empty",
+     "nodos": 2,
+     "ejemplo": "th:nth-child(1)"
+    },
+    {
+     "id": "heading-order",
+     "impacto": "moderate",
+     "ayuda": "Heading levels should only increase by one",
+     "nodos": 2,
+     "ejemplo": ".entre.fila > h3"
+    }
+   ]
+  },
+  {
+   "pantalla": "Parte 2 · Entrevista",
+   "violaciones": [
+    {
+     "id": "color-contrast",
+     "impacto": "serious",
+     "ayuda": "Elements must meet minimum color contrast ratio thresholds",
+     "nodos": 20,
+     "ejemplo": "header > .fila > .suave"
+    },
+    {
+     "id": "heading-order",
+     "impacto": "moderate",
+     "ayuda": "Heading levels should only increase by one",
+     "nodos": 1,
+     "ejemplo": "aside > .entre.fila > h3"
+    }
+   ]
+  },
+  {
+   "pantalla": "Parte 3 · Resultado",
+   "violaciones": [
+    {
+     "id": "color-contrast",
+     "impacto": "serious",
+     "ayuda": "Elements must meet minimum color contrast ratio thresholds",
+     "nodos": 15,
+     "ejemplo": ".fila > .suave"
+    }
+   ]
+  },
+  {
+   "pantalla": "Integraciones",
+   "violaciones": [
+    {
+     "id": "color-contrast",
+     "impacto": "serious",
+     "ayuda": "Elements must meet minimum color contrast ratio thresholds",
+     "nodos": 3,
+     "ejemplo": ".fila > .suave"
+    }
+   ]
+  }
+ ],
+ "responsive": [
+  {
+   "ancho": 1280,
+   "ruta": "#/",
+   "desbordePx": 0
+  },
+  {
+   "ancho": 1280,
+   "ruta": "#/convocatoria/e5d5af5f8d80/cv",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 1280,
+   "ruta": "#/convocatoria/e5d5af5f8d80/entrevista",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 1280,
+   "ruta": "#/integraciones",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 1024,
+   "ruta": "#/",
+   "desbordePx": 0
+  },
+  {
+   "ancho": 1024,
+   "ruta": "#/convocatoria/e5d5af5f8d80/cv",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 1024,
+   "ruta": "#/convocatoria/e5d5af5f8d80/entrevista",
+   "desbordePx": 24
+  },
+  {
+   "ancho": 1024,
+   "ruta": "#/integraciones",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 768,
+   "ruta": "#/",
+   "desbordePx": 0
+  },
+  {
+   "ancho": 768,
+   "ruta": "#/convocatoria/e5d5af5f8d80/cv",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 768,
+   "ruta": "#/convocatoria/e5d5af5f8d80/entrevista",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 768,
+   "ruta": "#/integraciones",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 390,
+   "ruta": "#/",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 390,
+   "ruta": "#/convocatoria/e5d5af5f8d80/cv",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 390,
+   "ruta": "#/convocatoria/e5d5af5f8d80/entrevista",
+   "desbordePx": -15
+  },
+  {
+   "ancho": 390,
+   "ruta": "#/integraciones",
+   "desbordePx": -15
+  }
+ ],
+ "teclado": {
+  "recorrido": [
+   "button:CAComercial Aurora (demo)|foco=visible",
+   "button:Importar aviso|foco=visible",
+   "a:Analista de CobranzasBumeranCr|foco=visible",
+   "a:Asistente de Marketing Digital|foco=visible",
+   "a:Analista de Business Intellige|foco=visible",
+   "body:Palomar TalentSelección con IA|foco=no",
+   "a:Palomar TalentSelección con IA|foco=visible",
+   "a:Convocatorias|foco=visible",
+   "a:Integraciones|foco=visible",
+   "a:Ajustes|foco=visible",
+   "button:Esconder el menú|foco=visible",
+   "button:CAComercial Aurora (demo)|foco=visible"
+  ]
+ },
+ "rendimiento": {
+  "carga": {
+   "domListoMs": 22,
+   "cargaMs": 22,
+   "transferidoKB": 9
+  }
+ },
+ "errores": []
+}

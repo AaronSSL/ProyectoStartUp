@@ -1,20 +1,22 @@
 :root {
-  --marca: #151a33;     /* azul noche del logo */
-  --marca-2: #2b3266;
-  --acento: #a98ddc;    /* lila de «Talent» */
-  --fondo: #f4f6f9;
+  /* Paleta derivada del logo: azul marino, verde azulado («Talent») y grises de la paloma */
+  --marca: #182744;
+  --marca-2: #24375e;
+  --acento: #6fa4ac;          /* sobre fondos oscuros */
+  --acento-fuerte: #2e6f7b;   /* sobre fondos claros (contraste AA) */
+  --fondo: #f3f5f8;
   --superficie: #ffffff;
-  --borde: #dfe4ec;
-  --texto: #1a2433;
-  --texto-2: #536076;
-  --suave: #8a96a8;
-  --p1: #2b6cb0;   /* Parte 1 · CV */
-  --p1-suave: #e6f0fb;
-  --p2: #6b46c1;   /* Parte 2 · Entrevista */
-  --p2-suave: #efe9fb;
-  --p3: #2f855a;   /* Parte 3 · Resultado */
-  --p3-suave: #e6f4ec;
-  --peligro: #c53030;
+  --borde: #dde2ea;
+  --texto: #16223a;
+  --texto-2: #4b5870;
+  --suave: #7a8499;
+  --p1: #2f5f8f;   /* Parte 1 · CV */
+  --p1-suave: #e8eef6;
+  --p2: #2e7d86;   /* Parte 2 · Entrevista */
+  --p2-suave: #e5f2f3;
+  --p3: #3f7d5c;   /* Parte 3 · Resultado */
+  --p3-suave: #e7f2ec;
+  --peligro: #b42318;
   --radio: 10px;
   --sombra: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -31,23 +33,23 @@ h1 { font-size: 1.5rem; }
 h2 { font-size: 1.2rem; }
 h3 { font-size: 1rem; }
 p { margin: 0; }
-a { color: var(--marca-2); }
-:focus-visible { outline: 2px solid var(--marca-2); outline-offset: 2px; }
+a { color: var(--acento-fuerte); }
+:focus-visible { outline: 2px solid var(--acento-fuerte); outline-offset: 2px; }
 
 /* Estructura */
 .app { display: grid; grid-template-columns: 236px minmax(0, 1fr); min-height: 100vh; transition: grid-template-columns .2s; }
 .app.plegada { grid-template-columns: 72px minmax(0, 1fr); }
 .app.plegada .texto-nav { display: none; }
 .app.plegada .lateral a.nav, .app.plegada .logo { justify-content: center; padding-left: 0; padding-right: 0; }
-.lateral { background: var(--marca); color: #dbe0f1; display: flex; flex-direction: column; padding: 16px 12px; gap: 4px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.lateral { background: var(--marca); color: #d5deea; display: flex; flex-direction: column; padding: 16px 12px; gap: 4px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
 .logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 700; font-size: 1.1rem; padding: 4px 8px 18px; text-decoration: none; }
 .logo img { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
 .logo em, .bienvenida h1 em { font-style: normal; color: var(--acento); }
-.logo small { display: block; font-weight: 400; font-size: .72rem; color: #a9bdd6; }
-.lateral a.nav { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; color: #dbe5f1; text-decoration: none; font-size: .93rem; }
+.logo small { display: block; font-weight: 400; font-size: .72rem; color: #9fb1c9; }
+.lateral a.nav { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; color: #d5deea; text-decoration: none; font-size: .93rem; }
 .lateral a.nav:hover { background: rgba(255, 255, 255, .08); }
-.lateral a.nav[aria-current='page'] { background: rgba(255, 255, 255, .14); color: #fff; font-weight: 600; }
-.lateral .pie { margin-top: auto; font-size: .75rem; color: #a9bdd6; padding: 8px; }
+.lateral a.nav[aria-current='page'] { background: rgba(111, 164, 172, .2); color: #fff; font-weight: 600; box-shadow: inset 3px 0 0 var(--acento); }
+.lateral .pie { margin-top: auto; font-size: .75rem; color: #9fb1c9; padding: 8px; }
 .principal { min-width: 0; display: flex; flex-direction: column; }
 .cabecera { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 28px; background: var(--superficie); border-bottom: 1px solid var(--borde); position: sticky; top: 0; z-index: 5; }
 .empresa-actual { display: flex; align-items: center; gap: 10px; }
@@ -79,7 +81,7 @@ a { color: var(--marca-2); }
 .etiqueta.p1 { background: var(--p1-suave); color: var(--p1); }
 .etiqueta.p2 { background: var(--p2-suave); color: var(--p2); }
 .alerta { padding: 10px 14px; border-radius: 8px; background: #fdecec; color: #8b1f1f; font-size: .88rem; }
-.aviso-info { padding: 10px 14px; border-radius: 8px; background: #eef4fb; color: #24496f; font-size: .88rem; }
+.aviso-info { padding: 10px 14px; border-radius: 8px; background: #e9f1f3; color: #1f4f58; font-size: .88rem; }
 label.campo { display: grid; gap: 5px; font-size: .86rem; font-weight: 600; color: var(--texto-2); }
 .campo input, .campo select, .campo textarea, input.control, select.control, textarea.control { width: 100%; padding: 8px 10px; border: 1px solid var(--borde); border-radius: 8px; background: #fff; font-weight: 400; color: var(--texto); }
 textarea.control, .campo textarea { resize: vertical; min-height: 70px; }
@@ -87,7 +89,7 @@ textarea.control, .campo textarea { resize: vertical; min-height: 70px; }
 .vacio svg { color: var(--suave); margin-bottom: 8px; }
 .progreso { display: grid; gap: 6px; }
 .progreso .barra { height: 6px; background: #e7ecf3; border-radius: 99px; overflow: hidden; }
-.progreso .barra span { display: block; height: 100%; background: var(--marca-2); transition: width .3s; }
+.progreso .barra span { display: block; height: 100%; background: var(--acento-fuerte); transition: width .3s; }
 .progreso .barra.indeterminada span { width: 35% !important; animation: indeterminado 1.2s infinite ease-in-out; }
 @keyframes indeterminado { from { transform: translateX(-100%); } to { transform: translateX(300%); } }
 .puntaje { display: grid; grid-template-columns: 1fr 44px; align-items: center; gap: 8px; min-width: 120px; }
@@ -160,12 +162,12 @@ ul.observaciones { margin: 0; padding-left: 18px; display: grid; gap: 5px; font-
 .pasos li::before { content: counter(paso); width: 26px; height: 26px; border-radius: 50%; background: var(--marca); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .82rem; }
 
 /* Bienvenida */
-.bienvenida { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: linear-gradient(160deg, #151a33 0%, #2b3266 55%, #f4f6f9 55%); }
+.bienvenida { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: linear-gradient(160deg, #0f1d37 0%, #24375e 55%, #f3f5f8 55%); }
 .bienvenida .caja { width: min(860px, 100%); display: grid; gap: 18px; }
 .bienvenida .marca { color: #fff; display: flex; align-items: center; gap: 14px; }
 .bienvenida .marca img { width: 96px; height: 96px; border-radius: 50%; }
 .bienvenida .marca h1 { font-size: 2rem; }
-.bienvenida .marca p { color: #d6d3ef; }
+.bienvenida .marca p { color: #c9d6e4; }
 .opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
 @media (max-width: 1000px) {
