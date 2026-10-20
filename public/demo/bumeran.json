@@ -1,0 +1,163 @@
+{
+  "_nota": "Demo de la integración con Bumeran. Avisos basados en publicaciones reales (requisitos tal cual); postulantes FICTICIOS con el formato de la exportación de Bumeran.",
+  "portal": "bumeran",
+  "avisos": [
+    {
+      "avisoId": "1118437785",
+      "titulo": "Analista de Cobranzas",
+      "area": "Créditos y Cobranzas",
+      "publicadoEl": "2026-09-10",
+      "modalidad": "Presencial · Full-time · Senior",
+      "descripcion": "Importante empresa del sector financiero busca al mejor talento para la posición de Analista de Cobranzas. Funciones: gestionar el proceso de facturación; emitir facturas, notas de crédito y boletas; gestionar cobranzas y hacer seguimiento a pagos pendientes; controlar y conciliar cuentas por cobrar; atender quejas, reclamos y consultas de los clientes.",
+      "requisitos": [
+        { "texto": "Profesional universitario de las carreras de Contabilidad, finanzas, economía y/o afines.", "peso": 20 },
+        { "texto": "2 años de experiencia como Analista.", "peso": 20 },
+        { "texto": "Manejo de excel a nivel intermedio.", "peso": 20 },
+        { "texto": "Manejo de canvas y otras herramientas de diseño", "peso": 20 },
+        { "texto": "Deseable especialización o posgrado en Branding.", "peso": 20 }
+      ],
+      "postulantes": [
+        {
+          "id": "lparedes", "nombre": "Lucía Paredes Quispe", "ciudad": "Lima", "postuladoEl": "2026-09-11", "video": "Lucia_Paredes_entrevista.mp4",
+          "experiencias": [
+            { "puesto": "Analista de cobranzas", "empresa": "Financiera Andina S.A.", "periodo": "2021 – actualidad (4 años como analista)", "descripcion": "Gestión de una cartera morosa de 600 clientes con tramos de 30 a 120 días. Negociación telefónica de acuerdos de pago; recuperación del 78% de la cartera vencida. Reportes semanales en Excel con tablas dinámicas y BUSCARV." },
+            { "puesto": "Asistente de créditos", "empresa": "Caja Sur", "periodo": "2019 – 2021", "descripcion": "Atención al cliente en ventanilla y por teléfono; conciliación de cuentas por cobrar." }
+          ],
+          "estudios": [
+            { "titulo": "Bachiller en Administración de Empresas", "institucion": "Universidad Nacional Mayor de San Marcos", "nivel": "Universitario", "estado": "Graduado" },
+            { "titulo": "Especialización en Branding y Gestión de Marca", "institucion": "Escuela de Negocios del Pacífico", "nivel": "Posgrado", "estado": "En curso" }
+          ],
+          "idiomas": "Inglés básico", "habilidades": "Excel avanzado, SAP FI, Canva y herramientas de diseño para reportes visuales, negociación"
+        },
+        {
+          "id": "jhuaman", "nombre": "Jorge Huamán Lima", "ciudad": "Lima", "postuladoEl": "2026-09-12",
+          "experiencias": [{ "puesto": "Asistente contable", "empresa": "Estudio Contable Ríos", "periodo": "2020 – actualidad", "descripcion": "Cuentas por cobrar: seguimiento de facturas vencidas y llamadas de cobranza. Conciliaciones bancarias en Excel con tablas dinámicas. Emisión de facturas electrónicas." }],
+          "estudios": [{ "titulo": "Contador Público", "institucion": "Universidad de Lima", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "Inglés intermedio", "habilidades": "Excel intermedio, facturación electrónica"
+        },
+        {
+          "id": "msoto", "nombre": "Mariana Soto Vega", "ciudad": "Trujillo", "postuladoEl": "2026-09-12",
+          "experiencias": [{ "puesto": "Ejecutiva de call center", "empresa": "Telecom Perú", "periodo": "2022 – actualidad", "descripcion": "Atención de reclamos y retención de clientes por teléfono. Negociación de descuentos para evitar bajas. Uso de Excel básico para registrar llamadas." }],
+          "estudios": [{ "titulo": "Contabilidad (7.º ciclo)", "institucion": "Universidad Privada del Norte", "nivel": "Universitario", "estado": "En curso" }],
+          "idiomas": "", "habilidades": "Atención al cliente, manejo de objeciones"
+        },
+        {
+          "id": "cvillanueva", "nombre": "Carla Villanueva Ríos", "ciudad": "Lima", "postuladoEl": "2026-09-13",
+          "experiencias": [
+            { "puesto": "Analista de créditos y cobranzas", "empresa": "Distribuidora Pacífico S.A.C.", "periodo": "2022 – actualidad", "descripcion": "Control de cuentas por cobrar de 300 clientes corporativos, emisión de notas de crédito y reportes de morosidad en Excel. Diseño de piezas de comunicación de cobranza en Canva." },
+            { "puesto": "Practicante de finanzas", "empresa": "Grupo Textil Andino", "periodo": "2021 – 2022", "descripcion": "Apoyo en conciliaciones y flujo de caja." }
+          ],
+          "estudios": [
+            { "titulo": "Economía", "institucion": "Universidad del Pacífico", "nivel": "Universitario", "estado": "Graduado" },
+            { "titulo": "Diplomado en Branding y Comunicación de Marca", "institucion": "Instituto de Marketing Lima", "nivel": "Posgrado", "estado": "Graduado" }
+          ],
+          "idiomas": "Inglés avanzado", "habilidades": "Excel intermedio, Canva, Power BI básico"
+        },
+        {
+          "id": "rcastillo", "nombre": "Renzo Castillo Paz", "ciudad": "Arequipa", "postuladoEl": "2026-09-14",
+          "experiencias": [{ "puesto": "Vendedor de campo", "empresa": "Bebidas del Sur", "periodo": "2021 – actualidad", "descripcion": "Visitas a bodegas, toma de pedidos y cobranza en efectivo a clientes de ruta." }],
+          "estudios": [{ "titulo": "Técnico en Administración", "institucion": "Instituto Superior del Sur", "nivel": "Terciario/Técnico", "estado": "Graduado" }],
+          "idiomas": "", "habilidades": "Ventas, atención al cliente"
+        },
+        {
+          "id": "dramos", "nombre": "Diego Ramos Torres", "ciudad": "Lima", "postuladoEl": "2026-09-15", "video": "Diego_Ramos_entrevista.mp4",
+          "experiencias": [{ "puesto": "Cocinero", "empresa": "Restaurante El Puerto", "periodo": "2020 – actualidad", "descripcion": "Preparación de platos de la carta y control de insumos de cocina. Limpieza y orden del área de producción." }],
+          "estudios": [{ "titulo": "Técnico en Gastronomía", "institucion": "Instituto de Cocina del Perú", "nivel": "Terciario/Técnico", "estado": "Graduado" }],
+          "idiomas": "", "habilidades": "Trabajo en equipo, manipulación de alimentos"
+        }
+      ]
+    },
+    {
+      "avisoId": "1118429195",
+      "titulo": "Asistente de Marketing Digital",
+      "area": "Community Management",
+      "publicadoEl": "2026-09-04",
+      "modalidad": "Presencial · Full-time · Junior",
+      "descripcion": "Buscamos un Asistente de Marketing Digital para apoyar la planificación de campañas (objetivos, públicos y mensajes), configurar y monitorear anuncios en Meta Ads, Google Ads, LinkedIn y TikTok, adaptar piezas gráficas y textos a cada canal, y dar seguimiento a los KPIs de cada campaña.",
+      "requisitos": [
+        { "texto": "Profesional técnico o universitario de Administración / Marketing / Publicidad / Comunicaciones o a fines.", "peso": 25 },
+        { "texto": "Mínimo 1 año de experiencia en áreas de Marketing Digital", "peso": 25 },
+        { "texto": "Conocimiento intermedio de publicidad en plataformas digitales (Google, Meta, LinkedIn, TikTok),", "peso": 25 },
+        { "texto": "Manejo de herramientas de analítica como Google Analytics", "peso": 25 }
+      ],
+      "postulantes": [
+        {
+          "id": "vtorres", "nombre": "Valeria Torres Méndez", "ciudad": "Lima", "postuladoEl": "2026-09-05",
+          "experiencias": [{ "puesto": "Analista de performance", "empresa": "Agencia Clic Digital", "periodo": "2023 – actualidad", "descripcion": "Configuración y optimización de campañas en Meta Ads, Google Ads y TikTok Ads para clientes de retail. Reportes semanales de KPIs (CPA, ROAS, CTR) con Google Analytics 4 y Looker Studio." }],
+          "estudios": [{ "titulo": "Marketing", "institucion": "Universidad de Ciencias Aplicadas", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "Inglés intermedio", "habilidades": "Google Analytics 4, Meta Business Suite, Canva"
+        },
+        {
+          "id": "aquispe", "nombre": "André Quispe Salas", "ciudad": "Lima", "postuladoEl": "2026-09-06",
+          "experiencias": [{ "puesto": "Community manager", "empresa": "Café Montaña", "periodo": "2024 – actualidad", "descripcion": "Gestión de redes sociales (Instagram, TikTok), calendario de contenidos y respuesta a la comunidad. Pauta básica en Meta Ads." }],
+          "estudios": [{ "titulo": "Técnico en Diseño Gráfico Publicitario", "institucion": "Instituto Toulouse Lautrec", "nivel": "Terciario/Técnico", "estado": "Graduado" }],
+          "idiomas": "", "habilidades": "Adobe Illustrator, CapCut"
+        },
+        {
+          "id": "sflores", "nombre": "Sofía Flores Cárdenas", "ciudad": "Cusco", "postuladoEl": "2026-09-06",
+          "experiencias": [{ "puesto": "Asistente comercial", "empresa": "Hotel Valle Sagrado", "periodo": "2022 – actualidad", "descripcion": "Atención de reservas, coordinación con agencias y apoyo en publicaciones de la web del hotel." }],
+          "estudios": [{ "titulo": "Administración de Turismo", "institucion": "Universidad Andina del Cusco", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "Inglés avanzado", "habilidades": "Atención al cliente, Excel"
+        },
+        {
+          "id": "lgarcia", "nombre": "Luis García Ponce", "ciudad": "Lima", "postuladoEl": "2026-09-07",
+          "experiencias": [
+            { "puesto": "Practicante de marketing digital", "empresa": "Editorial Nuevo Saber", "periodo": "2025 – actualidad", "descripcion": "Apoyo en campañas de Google Ads y LinkedIn Ads, etiquetado con Google Tag Manager y seguimiento de conversiones en Google Analytics." }
+          ],
+          "estudios": [{ "titulo": "Ciencias de la Comunicación (10.º ciclo)", "institucion": "Universidad de Lima", "nivel": "Universitario", "estado": "En curso" }],
+          "idiomas": "Inglés intermedio", "habilidades": "Google Ads, GA4, Tag Manager"
+        },
+        {
+          "id": "mrojas", "nombre": "Milagros Rojas Lázaro", "ciudad": "Lima", "postuladoEl": "2026-09-08",
+          "experiencias": [{ "puesto": "Cajera", "empresa": "Supermercados Ahorro", "periodo": "2021 – actualidad", "descripcion": "Atención en caja, cuadre de caja diario y atención de consultas." }],
+          "estudios": [{ "titulo": "Secundaria completa", "institucion": "I.E. San José", "nivel": "Secundario", "estado": "Graduado" }],
+          "idiomas": "", "habilidades": "Atención al público"
+        }
+      ]
+    },
+    {
+      "avisoId": "1118415565",
+      "titulo": "Analista de Business Intelligence",
+      "area": "Business Intelligence",
+      "publicadoEl": "2026-08-25",
+      "modalidad": "Presencial · Full-time · Junior",
+      "descripcion": "Buscamos un Analista de Business Intelligence para generar reportes y dashboards del funnel de conversión de las campañas de marketing digital, aplicar técnicas estadísticas y de Machine Learning para modelos de segmentación y predicción, y comunicar los hallazgos con visualizaciones claras.",
+      "requisitos": [
+        { "texto": "Bachiller de las carreras de administración y marketing, estadística, Ing. sistemas, Ing. industrial o afines.", "peso": 20 },
+        { "texto": "Mínimo 2 años de experiencia en ánalisis de datos de marketing digital.", "peso": 20 },
+        { "texto": "Dominio de excel avanzado", "peso": 20 },
+        { "texto": "Dominio de PowerBi, Looker studio, Python y R a nivel intermedio y básico de SQL.", "peso": 20 },
+        { "texto": "Inglés intermedio (deseable)", "peso": 20 }
+      ],
+      "postulantes": [
+        {
+          "id": "pchavez", "nombre": "Paola Chávez Arana", "ciudad": "Lima", "postuladoEl": "2026-08-26",
+          "experiencias": [{ "puesto": "Analista de datos de marketing", "empresa": "Retail Plus S.A.", "periodo": "2023 – actualidad", "descripcion": "Dashboards en Power BI y Looker Studio del funnel de campañas digitales. Modelos de segmentación de clientes en Python (k-means). Consultas SQL sobre BigQuery." }],
+          "estudios": [{ "titulo": "Bachiller en Estadística", "institucion": "Universidad Nacional Agraria La Molina", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "Inglés intermedio", "habilidades": "Power BI, Python (pandas, scikit-learn), SQL, Excel avanzado"
+        },
+        {
+          "id": "jmorales", "nombre": "Javier Morales Ruiz", "ciudad": "Lima", "postuladoEl": "2026-08-27",
+          "experiencias": [{ "puesto": "Asistente de planeamiento", "empresa": "Industrias del Norte", "periodo": "2022 – actualidad", "descripcion": "Reportes de producción en Excel avanzado (macros, tablas dinámicas) y tableros en Power BI." }],
+          "estudios": [{ "titulo": "Ingeniería Industrial", "institucion": "Pontificia Universidad Católica del Perú", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "Inglés básico", "habilidades": "Excel avanzado, Power BI"
+        },
+        {
+          "id": "kvega", "nombre": "Katherine Vega Soto", "ciudad": "Lima", "postuladoEl": "2026-08-28",
+          "experiencias": [{ "puesto": "Desarrolladora web", "empresa": "Software Andino", "periodo": "2023 – actualidad", "descripcion": "Desarrollo de aplicaciones web con JavaScript y Node.js; consultas SQL sobre PostgreSQL." }],
+          "estudios": [{ "titulo": "Ingeniería de Sistemas", "institucion": "Universidad Nacional de Ingeniería", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "Inglés intermedio", "habilidades": "JavaScript, SQL, Git"
+        },
+        {
+          "id": "bnunez", "nombre": "Bruno Núñez Herrera", "ciudad": "Piura", "postuladoEl": "2026-08-29",
+          "experiencias": [{ "puesto": "Asistente administrativo", "empresa": "Agroexportadora Piura", "periodo": "2021 – actualidad", "descripcion": "Registro de documentos, archivo y apoyo en la elaboración de reportes en Excel." }],
+          "estudios": [{ "titulo": "Administración", "institucion": "Universidad de Piura", "nivel": "Universitario", "estado": "Graduado" }],
+          "idiomas": "", "habilidades": "Excel intermedio"
+        },
+        {
+          "id": "fluisigno", "nombre": "Francisco Luisigno", "soloEntrevista": true, "video": "Francisco Luisigno.mp4", "postuladoEl": "2026-08-30"
+        }
+      ]
+    }
+  ]
+}

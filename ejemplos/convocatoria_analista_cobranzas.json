@@ -1,0 +1,21 @@
+{
+  "titulo": "Analista de Cobranzas",
+  "requisitos": [
+    {
+      "texto": "Experiencia mínima de 2 años en cobranzas o gestión de cartera morosa",
+      "peso": 35
+    },
+    {
+      "texto": "Manejo de Excel intermedio o avanzado (tablas dinámicas, BUSCARV)",
+      "peso": 20
+    },
+    {
+      "texto": "Formación técnica o universitaria en Administración, Contabilidad o Economía",
+      "peso": 20
+    },
+    {
+      "texto": "Negociación y atención al cliente por teléfono",
+      "peso": 25
+    }
+  ]
+}

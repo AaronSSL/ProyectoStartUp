@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TalentAI Escritorio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una columna editorial de 1120px; cada parte del sistema conserva el color de su segmento en la app
+   (azul CV, violeta entrevista, verde resultado) y la arquitectura se dibuja como un plano de capas. */
+:root {
+  --ink: #0f1729;          /* texto y cabecera, el azul noche de la barra de la app */
+  --paper: #f5f6f9;        /* fondo, gris con sesgo azul */
+  --surface: #ffffff;
+  --line: #dfe3ea;
+  --muted: #5b6577;
+  --p1: #2563eb;           /* Parte 1 · Análisis de CV */
+  --p2: #7c3aed;           /* Parte 2 · Entrevista en video */
+  --p3: #059669;           /* Parte 3 · Resultado final */
+  --p1-soft: #e8efff;
+  --p2-soft: #f1ebff;
+  --p3-soft: #e3f6ef;
+  --code-bg: #eef1f6;
+  --hero-bg: #0f1729;
+  --hero-fg: #f3f5f9;
+  --hero-muted: #9aa5b8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8ecf3; --paper: #0c1220; --surface: #141c2e; --line: #26314a; --muted: #9aa6bb;
+    --p1: #6b9bff; --p2: #a98bff; --p3: #34d39e;
+    --p1-soft: #172544; --p2-soft: #221a3f; --p3-soft: #0f2a24; --code-bg: #1a2338;
+    --hero-bg: #070b15; --hero-fg: #f3f5f9; --hero-muted: #93a0b6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e8ecf3; --paper: #0c1220; --surface: #141c2e; --line: #26314a; --muted: #9aa6bb;
+  --p1: #6b9bff; --p2: #a98bff; --p3: #34d39e;
+  --p1-soft: #172544; --p2-soft: #221a3f; --p3-soft: #0f2a24; --code-bg: #1a2338;
+  --hero-bg: #070b15; --hero-fg: #f3f5f9; --hero-muted: #93a0b6;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--p2); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.08; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.wrap { max-width: 1120px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--mono); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---------- cabecera ---------- */
+.top { background: var(--hero-bg); color: var(--hero-fg); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  border-bottom: 1px solid rgba(255,255,255,0.08); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand .dots { display: inline-flex; gap: 4px; }
+.brand .dots i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+.brand .dots i:nth-child(1) { background: #2563eb; } .brand .dots i:nth-child(2) { background: #7c3aed; } .brand .dots i:nth-child(3) { background: #059669; }
+.top nav { display: flex; gap: 22px; flex-wrap: wrap; font-size: 0.92rem; }
+.top nav a { text-decoration: none; color: var(--hero-muted); }
+.top nav a:hover { color: var(--hero-fg); }
+
+/* ---------- hero ---------- */
+.hero { background: var(--hero-bg); color: var(--hero-fg); padding-block: clamp(48px, 7vw, 88px) 0; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.6rem); font-weight: 800; letter-spacing: -0.03em; max-width: 14ch; }
+.hero h1 em { font-style: normal; color: #b49bff; }
+.hero .lede { color: var(--hero-muted); font-size: 1.14rem; max-width: 60ch; margin-top: 22px; }
+.hero .eyebrow { color: #b49bff; margin-bottom: 18px; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.98rem; }
+.btn-main { background: #7c3aed; color: #fff; }
+.btn-main:hover { background: #6d28d9; }
+.btn-ghost { border: 1px solid rgba(255,255,255,0.22); color: var(--hero-fg); }
+.btn-ghost:hover { background: rgba(255,255,255,0.06); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.12); }
+.fact { padding: 18px 20px 18px 0; }
+.fact + .fact { padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.12); }
+.fact b { display: block; font-family: var(--display); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+.fact span { color: var(--hero-muted); font-size: 0.9rem; }
+
+.shot { margin-top: 52px; position: relative; }
+.window { border-radius: 12px 12px 0 0; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); border-bottom: 0;
+  box-shadow: 0 -10px 60px rgba(124,58,237,0.25); background: #111827; }
+.window .bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #1b2436; color: #9aa5b8; font-size: 0.8rem; font-family: var(--mono); }
+.window .bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a4560; display: block; }
+.window img { display: block; width: 100%; height: auto; }
+.callout { position: absolute; background: #fff; color: #0f1729; border-radius: 10px; padding: 10px 14px; font-size: 0.86rem; line-height: 1.35;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35); max-width: 250px; }
+.callout b { display: block; font-family: var(--display); font-size: 0.95rem; }
+.callout.c1 { left: 41%; top: 87%; border-top: 3px solid #7c3aed; }
+.callout.c2 { right: -14px; top: 22%; border-top: 3px solid #059669; }
+@media (max-width: 760px) { .callout { display: none; } }
+
+/* ---------- secciones ---------- */
+section { padding-block: clamp(64px, 9vw, 112px); }
+.section-head { display: grid; gap: 14px; margin-bottom: 44px; max-width: 760px; }
+.section-head h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+.section-head p { color: var(--muted); font-size: 1.08rem; max-width: 64ch; }
+
+/* tres partes */
+.parts { display: grid; gap: 72px; }
+.part { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 44px; align-items: center; }
+.part:nth-child(even) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.part:nth-child(even) .part-text { order: 2; }
+@media (max-width: 860px) { .part, .part:nth-child(even) { grid-template-columns: minmax(0, 1fr); } .part:nth-child(even) .part-text { order: 0; } }
+.part-text { display: grid; gap: 14px; min-width: 0; }
+.tag { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.95rem; }
+.tag .n { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-family: var(--display); font-weight: 700; }
+.part h3 { font-size: clamp(1.6rem, 3vw, 2.15rem); font-weight: 700; letter-spacing: -0.015em; }
+.part p { color: var(--muted); }
+.part ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.part li { padding-left: 22px; position: relative; }
+.part li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 10px; height: 2px; border-radius: 2px; background: var(--c); }
+.p1 { --c: var(--p1); --cs: var(--p1-soft); } .p2 { --c: var(--p2); --cs: var(--p2-soft); } .p3 { --c: var(--p3); --cs: var(--p3-soft); }
+.tag .n { background: var(--c); }
+.tag { color: var(--c); }
+.frame { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); box-shadow: 0 18px 40px -24px rgba(15,23,41,0.45); min-width: 0; }
+.frame img { display: block; width: 100%; height: auto; }
+.frame figcaption { padding: 10px 14px; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--line); }
+
+/* arquitectura */
+.arch { background: var(--surface); border-block: 1px solid var(--line); }
+.diagram { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); padding: 18px; }
+.diagram svg { display: block; min-width: 940px; width: 100%; height: auto; }
+.diagram .col-title { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; fill: var(--muted); text-transform: uppercase; }
+.diagram .box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.diagram .box.c1 { stroke: var(--p1); fill: var(--p1-soft); }
+.diagram .box.c2 { stroke: var(--p2); fill: var(--p2-soft); }
+.diagram .box.c3 { stroke: var(--p3); fill: var(--p3-soft); }
+.diagram .box.ext { stroke-dasharray: 5 4; fill: var(--paper); }
+.diagram .t { font-family: var(--body); font-size: 14px; font-weight: 600; fill: var(--ink); }
+.diagram .s { font-family: var(--body); font-size: 12px; fill: var(--muted); }
+.diagram .m { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+.diagram .edge { fill: none; stroke: var(--muted); stroke-width: 1.6; }
+.diagram .edge.dash { stroke-dasharray: 5 4; }
+.diagram .ah { fill: var(--muted); }
+.diagram .group { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 3 5; }
+.layers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 28px; margin-top: 40px; }
+.layer { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.layer h3 { font-size: 1.15rem; font-weight: 700; }
+.layer p { color: var(--muted); font-size: 0.96rem; }
+.layer .eyebrow { color: var(--ink); opacity: 0.6; }
+
+/* pipeline de la entrevista */
+.pipeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); counter-reset: paso; border-top: 2px solid var(--p2); }
+.step { padding: 20px 18px 6px 0; display: grid; gap: 6px; align-content: start; min-width: 0; position: relative; }
+.step::before { counter-increment: paso; content: counter(paso, decimal-leading-zero); font-family: var(--mono); font-size: 0.8rem; color: var(--p2); font-weight: 500; }
+.step::after { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2px solid var(--p2); }
+.step h3 { font-size: 1.05rem; font-weight: 700; }
+.step p { color: var(--muted); font-size: 0.92rem; }
+.transcript { margin-top: 40px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; display: grid; gap: 10px; }
+.transcript .row { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.transcript .ts { font-family: var(--mono); color: var(--p2); font-weight: 500; font-size: 0.92rem; }
+.transcript mark { background: #fef3c7; color: #92400e; border-radius: 3px; padding: 0 3px; }
+.transcript .note { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px; }
+
+/* puntajes */
+.scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+.score { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 12px; padding: 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.score h3 { font-size: 1.25rem; font-weight: 700; }
+.formula { font-family: var(--mono); font-size: 0.86rem; background: var(--code-bg); border-radius: 8px; padding: 12px 14px; overflow-x: auto; white-space: nowrap; }
+.score dl { margin: 0; display: grid; gap: 10px; }
+.score dt { font-weight: 600; font-size: 0.95rem; }
+.score dd { margin: 2px 0 0; color: var(--muted); font-size: 0.92rem; }
+.bars { display: grid; gap: 8px; }
+.barrow { display: grid; grid-template-columns: 92px minmax(0, 1fr) 40px; gap: 10px; align-items: center; font-size: 0.88rem; }
+.barrow .track { height: 8px; border-radius: 4px; background: var(--code-bg); overflow: hidden; }
+.barrow .fill { height: 100%; background: var(--c); border-radius: 4px; }
+.barrow .v { text-align: right; font-family: var(--mono); }
+
+/* principios */
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.principle { padding: 26px 24px 26px 0; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.principle + .principle { padding-left: 24px; border-left: 1px solid var(--line); }
+@media (max-width: 760px) { .principle + .principle { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); } }
+.principle h3 { font-size: 1.15rem; font-weight: 700; }
+.principle p { color: var(--muted); font-size: 0.95rem; }
+
+/* tecnología */
+.stack { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.stack-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.stack th, .stack td { text-align: left; padding: 13px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.stack tr:last-child td { border-bottom: 0; }
+.stack th { font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--paper); }
+.stack td:first-child { font-weight: 600; white-space: nowrap; }
+.stack td:nth-child(2) { font-family: var(--mono); font-size: 0.86rem; white-space: nowrap; }
+.stack td:last-child { color: var(--muted); }
+
+footer { background: var(--hero-bg); color: var(--hero-muted); padding-block: 40px; font-size: 0.9rem; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer b { color: var(--hero-fg); font-family: var(--display); }
+
+/* modelo de negocio */
+.sub { font-size: clamp(1.3rem, 2.4vw, 1.6rem); font-weight: 700; letter-spacing: -0.01em; margin: 64px 0 22px; }
+.sub:first-of-type { margin-top: 0; }
+.audience { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 900px) { .audience { grid-template-columns: minmax(0, 1fr); } }
+.aud { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.aud h4 { font-family: var(--display); font-size: 1.15rem; margin: 0; line-height: 1.2; }
+.aud p { color: var(--muted); font-size: 0.95rem; }
+.aud-main { border-color: var(--p2); background: var(--p2-soft); }
+.aud-main .eyebrow { color: var(--p2); }
+.aud-roles { margin: 6px 0 0; display: grid; gap: 10px; }
+.aud-roles dt { font-weight: 600; font-size: 0.9rem; }
+.aud-roles dd { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.plan { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.plan-featured { border: 2px solid var(--p2); box-shadow: 0 18px 40px -26px rgba(124,58,237,0.6); }
+.price { font-family: var(--display); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.price small { font-family: var(--body); font-size: 0.9rem; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+.plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 0.94rem; }
+.plan li { padding-left: 20px; position: relative; }
+.plan li::before { content: ""; position: absolute; left: 2px; top: 0.5em; width: 8px; height: 5px; border-left: 2px solid var(--p3); border-bottom: 2px solid var(--p3); transform: rotate(-45deg); }
+.plans-note { margin-top: 16px; color: var(--muted); font-size: 0.95rem; }
+.plans-note b { color: var(--ink); }
+.reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.reason { padding: 22px 24px 8px 0; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.reason + .reason { padding-left: 24px; border-left: 1px solid var(--line); }
+@media (max-width: 760px) { .reason + .reason { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); } }
+.reason .big { font-family: var(--display); font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.reason p:not(.big) { color: var(--muted); font-size: 0.95rem; }
+.costs { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 900px) { .costs { grid-template-columns: minmax(0, 1fr); } }
+.costs-side { display: grid; gap: 18px; min-width: 0; }
+.costs-table td:first-child { white-space: normal; font-weight: 400; }
+.costs-table .r { text-align: right; font-family: var(--mono); white-space: nowrap; }
+.costs-table tr.total td { font-weight: 700; background: var(--paper); }
+.unit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.unit > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 4px; min-width: 0; }
+.unit b { font-family: var(--display); font-size: 1.6rem; font-weight: 700; }
+.unit small { color: var(--muted); font-size: 0.85rem; }
+.breakeven { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr); gap: 28px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(18px, 3vw, 32px); }
+@media (max-width: 900px) { .breakeven { grid-template-columns: minmax(0, 1fr); } }
+.be-headline { display: grid; gap: 6px; align-content: start; }
+.be-number { font-family: var(--display); font-size: clamp(5rem, 11vw, 8rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; color: var(--p3); }
+.be-label { font-size: 1.15rem; font-weight: 600; max-width: 16ch; }
+.be-math { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+.be-tool { display: grid; gap: 16px; min-width: 0; }
+.controls { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.controls label { display: flex; justify-content: space-between; gap: 12px; font-size: 0.92rem; margin-top: 8px; }
+.controls output { font-family: var(--mono); font-weight: 500; }
+.controls input[type=range] { width: 100%; accent-color: var(--p2); }
+.result { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-radius: 10px; background: var(--p3-soft); }
+.result b { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: var(--p3); }
+.result small { color: var(--muted); font-family: var(--mono); font-size: 0.82rem; }
+.result.perdida { background: #fdecec; }
+.result.perdida b { color: #b42318; }
+:root[data-theme="dark"] .result.perdida { background: #3a1517; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .result.perdida { background: #3a1517; } }
+:root[data-theme="dark"] .result.perdida b { color: #ff8a80; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .result.perdida b { color: #ff8a80; } }
+.chart-wrap { overflow-x: auto; }
+#grafico { display: block; width: 100%; min-width: 480px; height: auto; }
+#grafico .ax { stroke: var(--line); stroke-width: 1; }
+#grafico .tk { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+#grafico .in { fill: none; stroke: var(--p3); stroke-width: 3; }
+#grafico .out { fill: none; stroke: var(--p2); stroke-width: 3; }
+#grafico .gain { fill: var(--p3); opacity: 0.12; }
+#grafico .loss { fill: var(--p2); opacity: 0.10; }
+#grafico .pt { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; }
+#grafico .ptlabel { font-family: var(--body); font-size: 12px; font-weight: 600; fill: var(--ink); }
+#grafico .now { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.chart-legend { display: flex; gap: 8px 18px; flex-wrap: wrap; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.lg { display: inline-block; width: 18px; height: 3px; border-radius: 2px; margin-right: -10px; }
+.lg-in { background: var(--p3); } .lg-out { background: var(--p2); }
+.lg-pt { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ink); }
+.milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-top: 22px; }
+.milestones > div { padding: 14px 18px 14px 0; display: grid; gap: 2px; min-width: 0; }
+.milestones > div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+@media (max-width: 760px) { .milestones > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); } }
+.milestones b { font-family: var(--display); font-size: 1.15rem; }
+.milestones span { color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>TalentAI</a>
+    <nav aria-label="Secciones">
+      <a href="#proceso">Cómo funciona</a>
+      <a href="#arquitectura">Arquitectura</a>
+      <a href="#entrevista">Entrevista</a>
+      <a href="#puntajes">Puntajes</a>
+      <a href="#negocio">Negocio</a>
+      <a href="#tecnologia">Tecnología</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Aplicación de escritorio · selección de personal</p>
+          <h1>Cada puntaje llega con su <em>evidencia</em>.</h1>
+          <p class="lede">TalentAI ordena los CV según los requisitos del puesto y analiza la entrevista en video a partir de lo que la persona dice. Muestra la frase y el minuto que respaldan cada requisito, procesa todo en la PC y deja la decisión final al reclutador.</p>
+          <div class="actions">
+            <a class="btn btn-main" href="#proceso">Ver cómo funciona</a>
+            <a class="btn btn-ghost" href="#arquitectura">Ver la arquitectura</a>
+          </div>
+        </div>
+      </div>
+      <div class="facts">
+        <div class="fact"><b class="num">3 partes</b><span>CV, entrevista en video y resultado final</span></div>
+        <div class="fact"><b class="num">39 s → 17 s</b><span>audio transcrito por Whisper large-v3 en la GPU</span></div>
+        <div class="fact"><b class="num">0 datos</b><span>enviados fuera de la PC durante el análisis</span></div>
+        <div class="fact"><b class="num">60 · 20 · 20</b><span>contenido, fluidez y claridad en la entrevista</span></div>
+      </div>
+      <div class="shot">
+        <div class="window">
+          <div class="bar"><i></i><i></i><i></i><span>TalentAI · Parte 2 · Análisis de entrevista (video)</span></div>
+          <img src="img/parte2.jpg" width="1600" height="956" alt="Parte 2 de TalentAI: a la izquierda el video de la entrevista con subtítulos sincronizados; a la derecha el puntaje 88, las tarjetas de contenido, fluidez y claridad, y la evidencia de cada requisito con su minuto.">
+        </div>
+        <div class="callout c1"><b>Subtítulos sincronizados</b>La transcripción de Whisper acompaña al video palabra por palabra.</div>
+        <div class="callout c2"><b>▶ 00:24 lleva al momento exacto</b>Cada requisito cita lo que dijo el candidato y cuándo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PROCESO ===================== -->
+  <section id="proceso">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>Un proceso en tres partes, como los segmentos de la app</h2>
+        <p>La barra superior de TalentAI separa el trabajo en tres pasos con su propio color. Cada paso usa el resultado del anterior y todo se puede rastrear hasta su fuente.</p>
+      </div>
+
+      <div class="parts">
+        <article class="part p1">
+          <div class="part-text">
+            <span class="tag"><span class="n">1</span>Análisis de CV</span>
+            <h3>Ranking de CV por requisito, con la frase que lo respalda</h3>
+            <p>El reclutador define el aviso con sus requisitos y pesos (R1, R2…). TalentAI lee los CV en PDF, Word o texto, o importa un aviso de Bumeran desde Supabase, y compara cada fragmento del CV con cada requisito.</p>
+            <ul>
+              <li>Score de 0 a 100 dentro de la convocatoria y similitud por requisito.</li>
+              <li>Para cada requisito, el fragmento del CV que mejor lo cumple.</li>
+              <li>«Invitar a entrevista a los primeros N»: los elegidos se resaltan y pasan a la Parte 2.</li>
+            </ul>
+          </div>
+          <figure class="frame" style="margin:0">
+            <img src="img/parte1.jpg" width="1600" height="956" loading="lazy" alt="Parte 1 de TalentAI: lista de CV a la izquierda y ranking por requisitos con los tres primeros resaltados en violeta para la entrevista.">
+            <figcaption>Ranking de ejemplo para «Analista de Cobranzas». Los datos son ficticios.</figcaption>
+          </figure>
+        </article>
+
+        <article class="part p2">
+          <div class="part-text">
+            <span class="tag"><span class="n">2</span>Análisis de entrevista (video)</span>
+            <h3>El video a la izquierda, el análisis al costado</h3>
+            <p>Se extrae el audio del video y Whisper large-v3 lo transcribe con la marca de tiempo de cada palabra. Con esa transcripción se mide qué tanto responde a los requisitos y cómo lo comunica.</p>
+            <ul>
+              <li>Contenido: el minuto y la frase que sustentan cada requisito.</li>
+              <li>Fluidez: palabras por minuto y pausas largas.</li>
+              <li>Claridad: dicción y muletillas resaltadas en la transcripción.</li>
+            </ul>
+          </div>
+          <figure class="frame" style="margin:0">
+            <img src="img/parte2.jpg" width="1600" height="956" loading="lazy" alt="Parte 2 de TalentAI con el reproductor de video, los subtítulos y la evidencia por requisito.">
+            <figcaption>Entrevista de ejemplo con voz sintética: puntaje 88 (contenido 81, fluidez 100, claridad 100).</figcaption>
+          </figure>
+        </article>
+
+        <article class="part p3">
+          <div class="part-text">
+            <span class="tag"><span class="n">3</span>Resultado final</span>
+            <h3>CV y entrevista juntos; la decisión la registra el reclutador</h3>
+            <p>El puntaje final combina ambas partes con un peso ajustable. Quienes enviaron CV y entrevista van siempre primero; después, los que tienen una sola parte.</p>
+            <ul>
+              <li>Peso del CV y de la entrevista regulable de 0 a 100%.</li>
+              <li>Decisión por candidato (Avanza, En espera, Descartado) y nota de justificación.</li>
+              <li>Exportación a Excel o CSV con la evidencia de cada requisito.</li>
+            </ul>
+          </div>
+          <figure class="frame" style="margin:0">
+            <img src="img/parte3.jpg" width="1600" height="500" loading="lazy" alt="Parte 3 de TalentAI: tabla consolidada con los candidatos que tienen CV y entrevista primero, en filas verdes.">
+            <figcaption>Con 50% CV y 50% entrevista, Lucía Paredes obtiene 94 y el reclutador marca «Avanza».</figcaption>
+          </figure>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ARQUITECTURA ===================== -->
+  <section id="arquitectura" class="arch">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Arquitectura</p>
+        <h2>Cómo está construido el sistema</h2>
+        <p>Una aplicación de escritorio en Python. Las fuentes entran por la izquierda; el núcleo de análisis usa modelos que viven en la PC; la interfaz Qt muestra las tres partes y guarda la sesión de forma local.</p>
+      </div>
+
+      <div class="diagram" role="img" aria-label="Diagrama de arquitectura: fuentes (CV, aviso de Bumeran desde Supabase y video), núcleo de análisis (lectura y fragmentación, embeddings e5, Whisper large-v3 y métricas del habla), interfaz con las tres partes y salidas (sesión local, Excel o CSV y la decisión del reclutador).">
+        <svg viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="ah"/>
+            </marker>
+          </defs>
+
+          <!-- títulos de columna -->
+          <text x="40" y="28" class="col-title">Fuentes</text>
+          <text x="320" y="28" class="col-title">Núcleo de análisis · Python</text>
+          <text x="640" y="28" class="col-title">Interfaz · PySide6 (Qt)</text>
+          <text x="900" y="28" class="col-title">Salidas</text>
+
+          <!-- Fuentes -->
+          <rect x="40" y="50" width="220" height="74" rx="10" class="box"/>
+          <text x="56" y="80" class="t">CV del postulante</text>
+          <text x="56" y="102" class="s">PDF · Word (.docx) · texto</text>
+
+          <rect x="40" y="150" width="220" height="74" rx="10" class="box"/>
+          <text x="56" y="180" class="t">Aviso de Bumeran</text>
+          <text x="56" y="202" class="s">requisitos, postulantes, ranking e5</text>
+
+          <rect x="40" y="250" width="220" height="74" rx="10" class="box"/>
+          <text x="56" y="280" class="t">Video de la entrevista</text>
+          <text x="56" y="302" class="s">MP4 · MOV · WebM · audio</text>
+
+          <!-- Proyecto GTH (existente) -->
+          <rect x="24" y="372" width="252" height="176" rx="12" class="group"/>
+          <text x="40" y="394" class="m">PROYECTO GTH (YA EXISTENTE)</text>
+          <rect x="40" y="404" width="220" height="56" rx="10" class="box ext"/>
+          <text x="56" y="428" class="t">Supabase · PostgreSQL</text>
+          <text x="56" y="446" class="s">avisos · postulaciones · ranking</text>
+          <rect x="40" y="476" width="220" height="56" rx="10" class="box ext"/>
+          <text x="56" y="500" class="t">Scraper de Bumeran</text>
+          <text x="56" y="518" class="s">Selenium · corre a demanda</text>
+          <path d="M150,476 L150,462" class="edge" marker-end="url(#flecha)"/>
+          <!-- Supabase sube al aviso por el margen izquierdo -->
+          <path d="M40,432 L16,432 L16,187 L38,187" class="edge dash" marker-end="url(#flecha)"/>
+          <text x="33" y="336" class="m" transform="rotate(-90 33 336)">solo lectura</text>
+
+          <!-- Núcleo -->
+          <rect x="320" y="50" width="260" height="74" rx="10" class="box"/>
+          <text x="336" y="80" class="t">Lectura y fragmentación</text>
+          <text x="336" y="102" class="s">pdfplumber · viñetas, líneas, oraciones</text>
+
+          <rect x="320" y="150" width="260" height="74" rx="10" class="box"/>
+          <text x="336" y="180" class="t">Similitud por requisito</text>
+          <text x="336" y="202" class="s">multilingual-e5-base · TF-IDF de respaldo</text>
+
+          <rect x="320" y="250" width="260" height="74" rx="10" class="box"/>
+          <text x="336" y="280" class="t">Transcripción con Whisper</text>
+          <text x="336" y="302" class="s">large-v3 · GPU CUDA float16 · por palabra</text>
+
+          <rect x="320" y="350" width="260" height="74" rx="10" class="box"/>
+          <text x="336" y="380" class="t">Métricas del habla</text>
+          <text x="336" y="402" class="s">ritmo · pausas · muletillas · dicción</text>
+
+          <rect x="320" y="462" width="260" height="70" rx="10" class="box ext"/>
+          <text x="336" y="490" class="t">Modelos en la PC</text>
+          <text x="336" y="511" class="s">caché local · sin descargas ni envíos</text>
+
+          <!-- Fuentes → núcleo -->
+          <path d="M260,87 L318,87" class="edge" marker-end="url(#flecha)"/>
+          <path d="M260,187 L318,187" class="edge" marker-end="url(#flecha)"/>
+          <path d="M260,287 L318,287" class="edge" marker-end="url(#flecha)"/>
+          <!-- dentro del núcleo -->
+          <path d="M420,124 L420,148" class="edge" marker-end="url(#flecha)"/>
+          <path d="M420,324 L420,348" class="edge" marker-end="url(#flecha)"/>
+          <path d="M540,250 L540,226" class="edge" marker-end="url(#flecha)"/>
+          <text x="548" y="242" class="m">texto</text>
+          <path d="M450,462 L450,426" class="edge dash" marker-end="url(#flecha)"/>
+
+          <!-- Interfaz -->
+          <rect x="640" y="50" width="210" height="84" rx="10" class="box c1"/>
+          <text x="656" y="82" class="t">1 · Análisis de CV</text>
+          <text x="656" y="104" class="s">ranking, evidencia, primeros N</text>
+
+          <rect x="640" y="200" width="210" height="84" rx="10" class="box c2"/>
+          <text x="656" y="232" class="t">2 · Entrevista (video)</text>
+          <text x="656" y="254" class="s">reproductor, subtítulos, puntaje</text>
+
+          <rect x="640" y="350" width="210" height="84" rx="10" class="box c3"/>
+          <text x="656" y="382" class="t">3 · Resultado final</text>
+          <text x="656" y="404" class="s">peso CV / entrevista, decisión</text>
+
+          <!-- núcleo → interfaz -->
+          <path d="M580,187 L610,187 L610,92 L638,92" class="edge" marker-end="url(#flecha)"/>
+          <path d="M580,387 L610,387 L610,242 L638,242" class="edge" marker-end="url(#flecha)"/>
+          <path d="M580,200 L600,200 L600,230 L638,230" class="edge dash" marker-end="url(#flecha)"/>
+          <!-- entre partes -->
+          <path d="M745,134 L745,198" class="edge" marker-end="url(#flecha)"/>
+          <text x="753" y="170" class="m">primeros N</text>
+          <path d="M745,284 L745,348" class="edge" marker-end="url(#flecha)"/>
+
+          <!-- Salidas -->
+          <rect x="900" y="50" width="180" height="84" rx="10" class="box"/>
+          <text x="916" y="82" class="t">Sesión local</text>
+          <text x="916" y="104" class="s">JSON con guardado automático</text>
+
+          <rect x="900" y="200" width="180" height="84" rx="10" class="box"/>
+          <text x="916" y="232" class="t">Excel · CSV</text>
+          <text x="916" y="254" class="s">puntajes y evidencia</text>
+
+          <rect x="900" y="350" width="180" height="84" rx="10" class="box"/>
+          <text x="916" y="382" class="t">Decisión del reclutador</text>
+          <text x="916" y="404" class="s">Avanza · En espera · Descartado</text>
+
+          <path d="M850,92 L898,92" class="edge dash" marker-end="url(#flecha)"/>
+          <path d="M850,392 L875,392 L875,242 L898,242" class="edge" marker-end="url(#flecha)"/>
+          <path d="M850,392 L898,392" class="edge" marker-end="url(#flecha)"/>
+        </svg>
+      </div>
+
+      <div class="layers">
+        <div class="layer">
+          <p class="eyebrow">Fuentes</p>
+          <h3>CV, aviso y video</h3>
+          <p>Los CV se cargan desde archivos. Un aviso de Bumeran se importa desde el Supabase del proyecto GTH en modo de solo lectura, con sus requisitos, postulantes y el ranking que calculó el scraper.</p>
+        </div>
+        <div class="layer">
+          <p class="eyebrow">Núcleo de análisis</p>
+          <h3>Modelos locales</h3>
+          <p>multilingual-e5 compara significado entre requisitos y texto. Whisper large-v3 transcribe en la GPU (CUDA). Ambos se cargan desde la caché de la PC; si e5 no está disponible, se usa TF-IDF.</p>
+        </div>
+        <div class="layer">
+          <p class="eyebrow">Interfaz</p>
+          <h3>Qt en tres segmentos</h3>
+          <p>PySide6 con QtMultimedia para el reproductor. Los análisis largos corren en hilos aparte, con barra de avance y opción de cancelar, para que la ventana no se congele.</p>
+        </div>
+        <div class="layer">
+          <p class="eyebrow">Salidas</p>
+          <h3>Sesión y reporte</h3>
+          <p>Cada sesión se guarda sola en un JSON local. Si se vuelve a importar un aviso, se conservan las entrevistas y decisiones ya registradas. El resultado se exporta a Excel o CSV.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ENTREVISTA ===================== -->
+  <section id="entrevista">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Análisis de la entrevista</p>
+        <h2>Del video a la evidencia, paso a paso</h2>
+        <p>El análisis usa solo el audio. No se evalúan rostro, gestos, apariencia ni emociones: cada punto del puntaje sale de lo que la persona dijo y de cómo lo dijo.</p>
+      </div>
+
+      <div class="pipeline">
+        <div class="step"><h3>Extraer el audio</h3><p>PyAV lee la pista de audio del MP4, MOV o WebM.</p></div>
+        <div class="step"><h3>Transcribir</h3><p>Whisper large-v3 en español, con el tiempo de cada palabra y las muletillas sin limpiar.</p></div>
+        <div class="step"><h3>Dividir en oraciones</h3><p>Cada oración y cada par de oraciones guardan su minuto de inicio.</p></div>
+        <div class="step"><h3>Comparar con el aviso</h3><p>e5 busca la oración que mejor respalda cada requisito y detecta negaciones.</p></div>
+        <div class="step"><h3>Medir el habla</h3><p>Palabras por minuto, pausas de más de 3 s, muletillas y confianza por palabra.</p></div>
+        <div class="step"><h3>Puntuar y explicar</h3><p>Puntaje 0-100 con observaciones y la evidencia citada con su minuto.</p></div>
+      </div>
+
+      <div class="transcript" aria-label="Fragmento de transcripción de ejemplo">
+        <div class="row"><span class="ts">▶ 00:00</span><span><mark>Eh,</mark> <mark>este…</mark> <mark>bueno,</mark> mi nombre es Diego. Yo trabajo en un restaurante, <mark>o sea,</mark> en la cocina.</span></div>
+        <div class="row"><span class="ts">▶ 00:18</span><span>De cobranzas, <mark>eh,</mark> no tengo experiencia, pero, <mark>este,</mark> puedo aprender.</span></div>
+        <p class="note">Entrevista de ejemplo (voz sintética). Muletillas resaltadas: 12, es decir, 25 por cada 100 palabras. La frase de 00:18 se reconoce como negación, así que el requisito de experiencia en cobranzas baja de 62 a 19.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PUNTAJES ===================== -->
+  <section id="puntajes" class="arch">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Puntajes</p>
+        <h2>Cómo se calcula cada número</h2>
+        <p>Las reglas son pocas y visibles. Cada puntaje se puede rastrear hasta el fragmento del CV o el minuto de la entrevista que lo produjo.</p>
+      </div>
+
+      <div class="scores">
+        <article class="score p1">
+          <span class="tag"><span class="n">1</span>Score de CV</span>
+          <p class="formula">score = Σ peso(R<sub>k</sub>) × similitud(R<sub>k</sub>)</p>
+          <dl>
+            <div><dt>Similitud por requisito</dt><dd>El fragmento del CV más parecido a cada requisito, medido con e5.</dd></div>
+            <div><dt>Escala 0-100 relativa</dt><dd>e5 da similitudes muy juntas (por ejemplo, de 0.83 a 0.87), así que se reescalan dentro de la convocatoria: el mejor CV vale 100 y el orden no cambia.</dd></div>
+          </dl>
+        </article>
+
+        <article class="score p2">
+          <span class="tag"><span class="n">2</span>Puntaje de la entrevista</span>
+          <div class="bars" aria-label="Ejemplo: entrevista de Lucía Paredes">
+            <div class="barrow"><span>Contenido 60%</span><span class="track"><span class="fill" style="width:81%;display:block"></span></span><span class="v">81</span></div>
+            <div class="barrow"><span>Fluidez 20%</span><span class="track"><span class="fill" style="width:100%;display:block"></span></span><span class="v">100</span></div>
+            <div class="barrow"><span>Claridad 20%</span><span class="track"><span class="fill" style="width:100%;display:block"></span></span><span class="v">100</span></div>
+          </div>
+          <dl>
+            <div><dt>Fluidez</dt><dd>100 entre 110 y 160 palabras por minuto; baja hasta 0 en 60 o 220. Resta 15 puntos por cada pausa de más de 3 s por minuto.</dd></div>
+            <div><dt>Claridad</dt><dd>Mitad dicción (confianza de Whisper por palabra) y mitad muletillas: −12 por cada muletilla cada 100 palabras.</dd></div>
+            <div><dt>Contenido</dt><dd>Si la evidencia niega el requisito («no tengo experiencia en…»), su puntaje se multiplica por 0.3.</dd></div>
+          </dl>
+        </article>
+
+        <article class="score p3">
+          <span class="tag"><span class="n">3</span>Puntaje final</span>
+          <p class="formula">final = CV × w + entrevista × (1 − w)</p>
+          <dl>
+            <div><dt>Peso ajustable</dt><dd>El reclutador mueve w entre 0 y 100%. Por defecto, 50 / 50.</dd></div>
+            <div><dt>Orden</dt><dd>Primero, siempre, quienes tienen CV analizado y entrevista; después, los que tienen una sola parte. Dentro de cada grupo, por puntaje.</dd></div>
+            <div><dt>Modo copiloto</dt><dd>TalentAI ordena y explica. Quién avanza lo decide y lo registra el reclutador.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MODELO DE NEGOCIO ===================== -->
+  <section id="negocio">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Modelo de negocio</p>
+        <h2>Cómo gana dinero TalentAI y cuántos clientes necesita</h2>
+        <p>Suscripción mensual por paquete de convocatorias, no por usuario. Como el análisis corre en la PC del cliente, no pagamos servidores con GPU, y eso mantiene el costo por cliente bajo. Todas las cifras de esta sección son supuestos de trabajo que debemos validar con clientes reales.</p>
+      </div>
+
+      <h3 class="sub">A quién le vendemos</h3>
+      <div class="audience">
+        <article class="aud aud-main">
+          <p class="eyebrow">Cliente principal</p>
+          <h4>Áreas de RR. HH. de empresas medianas en Perú</h4>
+          <p>De 50 a 500 trabajadores, que publican en Bumeran u otros portales y reciben cientos de CV por aviso: cobranzas, centros de contacto, retail, educación privada. Hoy filtran a mano o pagan a una agencia.</p>
+          <dl class="aud-roles">
+            <div><dt>Quién lo usa</dt><dd>El analista o reclutador que revisa CV y entrevistas.</dd></div>
+            <div><dt>Quién lo paga</dt><dd>La jefatura de RR. HH., que busca contratar más rápido y con menos error.</dd></div>
+          </dl>
+        </article>
+        <article class="aud">
+          <p class="eyebrow">Segundo segmento</p>
+          <h4>Universidades e institutos</h4>
+          <p>Admisiones, bolsas de prácticas y procesos de becas, con muchos postulantes y entrevistas grabadas.</p>
+        </article>
+        <article class="aud">
+          <p class="eyebrow">Tercer segmento</p>
+          <h4>Consultoras pequeñas de selección</h4>
+          <p>Equipos de 2 a 10 personas que manejan varias convocatorias a la vez para distintos clientes.</p>
+        </article>
+      </div>
+
+      <h3 class="sub">Cómo ganamos dinero</h3>
+      <div class="plans">
+        <article class="plan">
+          <p class="eyebrow">Pyme</p>
+          <p class="price"><span class="num">USD 250</span><small>/ mes</small></p>
+          <ul>
+            <li>Hasta 5 convocatorias activas al mes</li>
+            <li>2 licencias de escritorio</li>
+            <li>Análisis de CV y de entrevista en video</li>
+            <li>Soporte por correo</li>
+          </ul>
+        </article>
+        <article class="plan plan-featured">
+          <p class="eyebrow">Empresa</p>
+          <p class="price"><span class="num">USD 450</span><small>/ mes</small></p>
+          <ul>
+            <li>Hasta 15 convocatorias activas al mes</li>
+            <li>5 licencias de escritorio</li>
+            <li>Importación directa de avisos de Bumeran</li>
+            <li>Soporte prioritario y capacitación del equipo</li>
+          </ul>
+        </article>
+        <article class="plan">
+          <p class="eyebrow">Institucional</p>
+          <p class="price"><span>A medida</span><small>contrato anual</small></p>
+          <ul>
+            <li>Universidades e institutos</li>
+            <li>Licencias según el volumen de postulantes</li>
+            <li>Piloto de 3 meses con seguimiento</li>
+          </ul>
+        </article>
+      </div>
+      <p class="plans-note">Además: implementación única de <b class="num">USD 300</b> (instalación, configuración de requisitos y capacitación). En pago anual, 2 meses gratis.</p>
+
+      <h3 class="sub">Por qué ese precio</h3>
+      <div class="reasons">
+        <div class="reason">
+          <p class="big num">USD 1,500–3,000</p>
+          <p>es lo que cuesta cada contratación hecha por una agencia de reclutamiento. Un año del plan Pyme (USD 3,000) cuesta lo mismo que una o dos contrataciones por agencia, y cubre todas las convocatorias del año.</p>
+        </div>
+        <div class="reason">
+          <p class="big num">≈ USD 280 / mes</p>
+          <p>vale el tiempo que ahorra el reclutador. Revisar 200 CV a 3 minutos cada uno toma 10 horas por aviso; con TalentAI, cerca de 1. Con un analista de USD 1,000 al mes y 5 avisos al mes, eso equivale a unos USD 281. El plan Pyme se paga solo con el ahorro.</p>
+        </div>
+        <div class="reason">
+          <p class="big num">Precio plano</p>
+          <p>Cobramos por convocatorias, no por usuario, para que el costo sea previsible y todo el equipo de RR. HH. pueda usarlo. El cómputo corre en la PC del cliente, así que no tenemos que trasladar costos de servidores.</p>
+        </div>
+      </div>
+
+      <h3 class="sub">Nuestros gastos</h3>
+      <div class="costs">
+        <div class="stack-wrap">
+          <table class="stack costs-table">
+            <thead><tr><th>Gasto fijo mensual</th><th class="r">USD</th></tr></thead>
+            <tbody>
+              <tr><td>Equipo: 3 personas a medio tiempo (desarrollo, ventas y soporte)</td><td class="r num">2,400</td></tr>
+              <tr><td>Marketing y ventas (LinkedIn, eventos de RR. HH., demos)</td><td class="r num">600</td></tr>
+              <tr><td>Contabilidad y asesoría legal</td><td class="r num">150</td></tr>
+              <tr><td>Herramientas (correo, CRM, mesa de ayuda)</td><td class="r num">60</td></tr>
+              <tr><td>Equipo de pruebas con GPU (amortizado en 36 meses)</td><td class="r num">50</td></tr>
+              <tr><td>Supabase Pro</td><td class="r num">25</td></tr>
+              <tr><td>Certificado de firma del instalador (prorrateado)</td><td class="r num">25</td></tr>
+              <tr><td>Web y dominio</td><td class="r num">20</td></tr>
+              <tr><td>Imprevistos (10%)</td><td class="r num">333</td></tr>
+              <tr class="total"><td>Total fijo</td><td class="r num">3,663</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="costs-side">
+          <div class="stack-wrap">
+            <table class="stack costs-table">
+              <thead><tr><th>Gasto variable por cliente al mes</th><th class="r">USD</th></tr></thead>
+              <tbody>
+                <tr><td>Soporte y seguimiento (2 h × USD 15)</td><td class="r num">30</td></tr>
+                <tr><td>Comisión de cobro (≈ 4%)</td><td class="r num">13</td></tr>
+                <tr><td>Datos y actualizaciones</td><td class="r num">3</td></tr>
+                <tr class="total"><td>Total por cliente</td><td class="r num">46</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="unit">
+            <div><span class="eyebrow">Ingreso promedio</span><b class="num">USD 330</b><small>60% Pyme · 40% Empresa</small></div>
+            <div><span class="eyebrow">Margen por cliente</span><b class="num">USD 284</b><small>86% del ingreso</small></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub">Cuántos clientes necesitamos</h3>
+      <div class="breakeven">
+        <div class="be-headline">
+          <p class="be-number num" id="be-n">13</p>
+          <p class="be-label">clientes para cubrir todos los gastos del mes</p>
+          <p class="be-math mono" id="be-math">3,663 ÷ (330 − 46) = 12.9 → 13</p>
+        </div>
+        <div class="be-tool">
+          <div class="controls">
+            <label for="c-clientes"><span>Clientes</span><output id="o-clientes" class="num">20</output></label>
+            <input type="range" id="c-clientes" min="0" max="40" step="1" value="20">
+            <label for="c-precio"><span>Ingreso promedio por cliente</span><output id="o-precio" class="num">USD 330</output></label>
+            <input type="range" id="c-precio" min="150" max="600" step="10" value="330">
+            <label for="c-fijos"><span>Gastos fijos al mes</span><output id="o-fijos" class="num">USD 3,663</output></label>
+            <input type="range" id="c-fijos" min="2000" max="7000" step="1" value="3663">
+          </div>
+          <div class="result" id="resultado"><span class="eyebrow">Resultado del mes</span><b class="num" id="r-utilidad">USD 2,017</b><small id="r-detalle">ingresos 6,600 − gastos 4,583</small></div>
+          <div class="chart-wrap">
+            <svg id="grafico" viewBox="0 0 640 300" role="img" aria-label="Gráfico de ingresos y gastos según el número de clientes, con el punto de equilibrio marcado."></svg>
+          </div>
+          <p class="chart-legend"><span class="lg lg-in"></span>Ingresos <span class="lg lg-out"></span>Gastos totales <span class="lg lg-pt"></span>Punto de equilibrio</p>
+        </div>
+      </div>
+      <div class="milestones">
+        <div><b class="num">5 clientes</b><span>pérdida de USD 2,243 al mes: fase de pilotos</span></div>
+        <div><b class="num">13 clientes</b><span>equilibrio: se cubren todos los gastos</span></div>
+        <div><b class="num">20 clientes</b><span>utilidad de USD 2,017 al mes</span></div>
+        <div><b class="num">30 clientes</b><span>utilidad de USD 4,857 al mes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRINCIPIOS ===================== -->
+  <section class="arch">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Principios de diseño</p>
+        <h2>Lo que TalentAI hace y lo que no hace</h2>
+      </div>
+      <div class="principles">
+        <div class="principle"><h3>Explicable</h3><p>Ningún número aparece sin la frase o el minuto que lo respalda.</p></div>
+        <div class="principle"><h3>Local</h3><p>Los CV, los videos y los modelos se quedan en la PC. Supabase solo se lee.</p></div>
+        <div class="principle"><h3>Copiloto</h3><p>Recomienda y ordena; la decisión y su justificación quedan a cargo del reclutador.</p></div>
+        <div class="principle"><h3>Sin análisis facial</h3><p>De la entrevista se usa el audio: lo que se dice y cómo se dice. Nada de rostro ni emociones.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TECNOLOGÍA ===================== -->
+  <section id="tecnologia">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Tecnología</p>
+        <h2>Componentes del sistema</h2>
+      </div>
+      <div class="stack-wrap">
+        <table class="stack">
+          <thead><tr><th>Componente</th><th>Tecnología</th><th>Para qué se usa</th></tr></thead>
+          <tbody>
+            <tr><td>Lenguaje</td><td>Python 3.13</td><td>Toda la aplicación y el análisis.</td></tr>
+            <tr><td>Interfaz</td><td>PySide6 6.9 (Qt)</td><td>Ventana, tres segmentos, tablas y reproductor con QtMultimedia.</td></tr>
+            <tr><td>Transcripción</td><td>faster-whisper · large-v3</td><td>Voz a texto en español con marca de tiempo por palabra (CTranslate2, CUDA float16).</td></tr>
+            <tr><td>Similitud semántica</td><td>intfloat/multilingual-e5-base</td><td>Compara requisitos con fragmentos de CV y oraciones de la entrevista.</td></tr>
+            <tr><td>Respaldo sin modelo</td><td>scikit-learn · TF-IDF</td><td>Similitud por n-gramas de caracteres cuando e5 no está disponible.</td></tr>
+            <tr><td>Lectura de CV</td><td>pdfplumber · lector .docx propio</td><td>Texto de PDF y Word, partido en viñetas, líneas y oraciones.</td></tr>
+            <tr><td>Datos de Bumeran</td><td>psycopg · Supabase (PostgreSQL)</td><td>Importación de avisos, postulantes y ranking en modo de solo lectura.</td></tr>
+            <tr><td>Reportes</td><td>pandas · openpyxl</td><td>Exportación del resultado a Excel y CSV.</td></tr>
+            <tr><td>Hardware de prueba</td><td>NVIDIA RTX 2060 · 6 GB</td><td>Whisper en la GPU; el video se decodifica por CPU para dejarle la memoria.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>TalentAI</b> · aplicación de escritorio para selección de personal · proyecto académico, 2026</span>
+    <span>Capturas con candidatos ficticios. Las cifras económicas son supuestos por validar.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return Math.round(n).toLocaleString("en-US"); };
+  var VAR_FIJO = 33;          // soporte (30) + datos (3) por cliente al mes
+  var COMISION = 0.04;        // comisión de cobro sobre el precio
+  var MAX_N = 40;
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function dibujar() {
+    var n = +$("c-clientes").value, precio = +$("c-precio").value, fijos = +$("c-fijos").value;
+    var variable = VAR_FIJO + Math.round(precio * COMISION);
+    var margen = precio - variable;
+    var eq = margen > 0 ? fijos / margen : Infinity;
+    var ingresos = n * precio, gastos = fijos + n * variable, utilidad = ingresos - gastos;
+
+    $("o-clientes").textContent = n;
+    $("o-precio").textContent = "USD " + fmt(precio);
+    $("o-fijos").textContent = "USD " + fmt(fijos);
+    $("be-n").textContent = isFinite(eq) ? Math.ceil(eq) : "—";
+    $("be-math").textContent = isFinite(eq)
+      ? fmt(fijos) + " ÷ (" + fmt(precio) + " − " + variable + ") = " + eq.toFixed(1) + " → " + Math.ceil(eq)
+      : "el precio no cubre el gasto por cliente";
+    $("r-utilidad").textContent = (utilidad < 0 ? "− USD " : "USD ") + fmt(Math.abs(utilidad));
+    $("r-detalle").textContent = "ingresos " + fmt(ingresos) + " − gastos " + fmt(gastos);
+    $("resultado").classList.toggle("perdida", utilidad < 0);
+
+    // Gráfico: x = clientes (0-40), y = USD; una sola escala para líneas, marcas y etiquetas
+    var svg = $("grafico"); while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var L = 64, R = 620, T = 16, B = 260;
+    var yMax = Math.max(MAX_N * precio, fijos + MAX_N * variable);
+    var paso = yMax > 20000 ? 5000 : 2500;
+    yMax = Math.ceil(yMax / paso) * paso;
+    var x = function (v) { return L + (v / MAX_N) * (R - L); };
+    var y = function (v) { return B - (v / yMax) * (B - T); };
+    for (var g = 0; g <= yMax; g += paso) {
+      svg.appendChild(el("line", { x1: L, x2: R, y1: y(g), y2: y(g), "class": "ax" }));
+      svg.appendChild(el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end", "class": "tk" }, fmt(g)));
+    }
+    for (var c = 0; c <= MAX_N; c += 10) {
+      svg.appendChild(el("text", { x: x(c), y: B + 18, "text-anchor": "middle", "class": "tk" }, c));
+    }
+    svg.appendChild(el("text", { x: R, y: B + 36, "text-anchor": "end", "class": "tk" }, "clientes"));
+    svg.appendChild(el("text", { x: L - 8, y: T - 4, "text-anchor": "end", "class": "tk" }, "USD"));
+    if (isFinite(eq) && eq < MAX_N) {   // zona de pérdida y de ganancia entre las dos rectas
+      svg.appendChild(el("polygon", { "class": "loss", points: [x(0), y(0), x(0), y(fijos), x(eq), y(eq * precio)].join(" ") }));
+      svg.appendChild(el("polygon", { "class": "gain", points: [x(eq), y(eq * precio), x(MAX_N), y(MAX_N * precio), x(MAX_N), y(fijos + MAX_N * variable)].join(" ") }));
+    }
+    svg.appendChild(el("line", { x1: x(n), x2: x(n), y1: T, y2: B, "class": "now" }));
+    svg.appendChild(el("polyline", { "class": "out", points: [x(0), y(fijos), x(MAX_N), y(fijos + MAX_N * variable)].join(" ") }));
+    svg.appendChild(el("polyline", { "class": "in", points: [x(0), y(0), x(MAX_N), y(MAX_N * precio)].join(" ") }));
+    if (isFinite(eq) && eq <= MAX_N) {
+      svg.appendChild(el("circle", { cx: x(eq), cy: y(eq * precio), r: 6, "class": "pt" }));
+      var izq = x(eq) > R - 140;
+      svg.appendChild(el("text", { x: x(eq) + (izq ? -12 : 12), y: y(eq * precio) + (izq ? -12 : 18), "text-anchor": izq ? "end" : "start", "class": "ptlabel" },
+        "equilibrio: " + Math.ceil(eq) + " clientes"));
+    }
+  }
+  ["c-clientes", "c-precio", "c-fijos"].forEach(function (id) { $(id).addEventListener("input", dibujar); });
+  dibujar();
+})();
+</script>
+
+</body>
+</html>

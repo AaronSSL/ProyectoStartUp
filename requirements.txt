@@ -1,0 +1,9 @@
+# Sobre el Python de Anaconda (faster-whisper, ctranslate2, PySide6, pdfplumber, scikit-learn, pandas, openpyxl)
+sentence-transformers>=3.0
+faster-whisper>=1.0
+PySide6>=6.6
+pdfplumber>=0.10
+scikit-learn>=1.3
+pandas>=2.0
+openpyxl>=3.1
+matplotlib>=3.7

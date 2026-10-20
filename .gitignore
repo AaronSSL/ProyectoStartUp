@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+datos/
+capturas/
+*.tmp
+
+# Versión web (Palomar Talent)
+node_modules/
+dist/
+.vercel
+
+# Video real (persona identificable): solo para la demo local, no se publica sin su consentimiento
+public/demo/entrevistas/Francisco Luisigno.mp4
+ejemplos/entrevistas/Francisco Luisigno.mp4
+tsconfig.tsbuildinfo

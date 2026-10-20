@@ -1,0 +1,9 @@
+{
+  "titulo": "Practicante de Inteligencia Artificial",
+  "requisitos": [
+    {"texto": "Estudiante o egresado de Inteligencia Artificial, Ingeniería de Sistemas o Computación", "peso": 25},
+    {"texto": "Experiencia en proyectos de inteligencia artificial o machine learning", "peso": 30},
+    {"texto": "Programación en Python", "peso": 25},
+    {"texto": "Conocimiento de otros lenguajes de programación (Java, Go) y diseño de prompts para modelos de lenguaje", "peso": 20}
+  ]
+}
