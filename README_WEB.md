@@ -1,4 +1,4 @@
-# Palomar Talent · versión web
+# CV UP · versión web
 
 Prototipo de startup (curso Proyecto StartUP): selección de personal con IA para cualquier empresa. Es la evolución
 web de la app de escritorio de esta misma carpeta (`app.py`, `talentai/`), que sigue funcionando igual.

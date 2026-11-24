@@ -29,7 +29,7 @@ export function Bienvenida({ empresas, onAbrir }: { empresas: Empresa[]; onAbrir
       <div className="caja">
         <div className="marca">
           <img src="/logo.png" alt="" />
-          <div><h1>Palomar <em>Talent</em></h1><p>Selección de personal con IA: análisis de CV y de entrevistas en video, para cualquier empresa.</p></div>
+          <div><h1>CV <em>UP</em></h1><p>Selección de personal con IA: análisis de CV y de entrevistas en video, para cualquier empresa.</p></div>
         </div>
         {empresas.length > 0 && (
           <section className="tarjeta">

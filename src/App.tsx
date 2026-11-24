@@ -67,7 +67,7 @@ export function App() {
   return (
     <div className={`app${plegado ? ' plegada' : ''}`}>
       <nav className="lateral" aria-label="Secciones">
-        <a className="logo" href="#/" title="Palomar Talent"><img src="/logo.png" alt="" /><span className="texto-nav">Palomar <em>Talent</em><small>Selección con IA</small></span></a>
+        <a className="logo" href="#/" title="CV UP"><img src="/logo.png" alt="" /><span className="texto-nav">CV <em>UP</em><small>Selección con IA</small></span></a>
         {enlace('#/', ruta.vista === 'convocatorias' || ruta.vista === 'convocatoria', <Briefcase size={18} />, 'Convocatorias')}
         {enlace('#/integraciones', ruta.vista === 'integraciones', <Plug size={18} />, 'Integraciones')}
         {enlace('#/ajustes', ruta.vista === 'ajustes', <Settings size={18} />, 'Ajustes')}

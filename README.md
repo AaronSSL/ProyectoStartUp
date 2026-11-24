@@ -1,4 +1,4 @@
-# TalentAI · versión de escritorio
+# CV UP · versión de escritorio
 
 Aplicación de escritorio (Python + PySide6) para la selección de personal, con tres partes que se ven como
 segmentos en la barra superior:
@@ -29,7 +29,7 @@ Supabase. Al importar uno se cargan sus requisitos (`avisos.criterios`), sus pos
 estudios e idiomas de `postulaciones.datos_json`) y el **ranking e5 ya calculado** (`ranking_embeddings`), con la
 evidencia de cada requisito. Los avisos que aún no tienen ranking se pueden calcular en la PC con «Analizar CVs».
 
-- **Solo lectura**: la conexión se abre en modo read-only; TalentAI no crea esquemas ni tablas y no escribe en Supabase.
+- **Solo lectura**: la conexión se abre en modo read-only; CV UP no crea esquemas ni tablas y no escribe en Supabase.
 - Las entrevistas, la preselección y las decisiones se guardan en la PC, en `datos/aviso_<id>.json`. Si se vuelve a importar el mismo aviso (por ejemplo, con postulantes nuevos), ese trabajo se conserva.
 - La conexión usa `SUPABASE_DB_URL`, tomada de la variable de entorno, del `.env` de esta carpeta o del `.env` del scraper (`INTERFAZ/GTH_Interfaz/scraping/.env`).
 - Va por el puerto de Postgres (5432). Algunas redes (universidad, wifi pública) lo bloquean; en ese caso el botón muestra «No se pudo conectar» y hay que usar otra red.

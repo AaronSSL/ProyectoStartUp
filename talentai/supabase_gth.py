@@ -1,6 +1,6 @@
 """Lectura (solo lectura) del Supabase del proyecto GTH: avisos de Bumeran, postulantes y ranking e5.
 
-TalentAI no crea tablas ni escribe en Supabase: la conexión se abre en modo read-only. Las entrevistas y las
+CV UP no crea tablas ni escribe en Supabase: la conexión se abre en modo read-only. Las entrevistas y las
 decisiones del reclutador se guardan en la sesión local (datos/*.json).
 
 Cadena de conexión: variable de entorno SUPABASE_DB_URL, o la línea SUPABASE_DB_URL= de .env en esta carpeta,
@@ -140,7 +140,7 @@ def importar_aviso(aviso_id: str, progreso=None, cancelado=lambda: False) -> Pro
 
 
 def armar_proyecto(aviso: dict, filas: list[dict], filas_ranking: list[dict]) -> Proyecto:
-    """Convierte las filas leídas de Supabase en una sesión de TalentAI (convocatoria, candidatos y scores)."""
+    """Convierte las filas leídas de Supabase en una sesión de CV UP (convocatoria, candidatos y scores)."""
     aviso_id = aviso["aviso_id"]
     ranking = {r["clave"]: r for r in filas_ranking}
     conv = Convocatoria(aviso["titulo"] or f"Aviso {aviso_id}", _criterios(aviso))

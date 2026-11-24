@@ -4,7 +4,7 @@ datos/
 capturas/
 *.tmp
 
-# Versión web (Palomar Talent)
+# Versión web (CV UP)
 node_modules/
 dist/
 .vercel

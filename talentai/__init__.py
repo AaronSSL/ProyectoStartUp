@@ -1,4 +1,4 @@
-"""TalentAI — aplicación de escritorio para la selección de personal.
+"""CV UP — aplicación de escritorio para la selección de personal.
 
 Parte 1: ranking de CVs contra los requisitos de la convocatoria (embeddings e5, con tfidf de respaldo).
 Parte 2: análisis de la entrevista en video a partir de su audio (transcripción con Whisper).

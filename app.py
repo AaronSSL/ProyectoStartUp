@@ -1,4 +1,4 @@
-"""TalentAI · aplicación de escritorio.
+"""CV UP · aplicación de escritorio.
 
     .venv\\Scripts\\python.exe app.py        (o doble clic en iniciar.bat)
 """
@@ -13,7 +13,9 @@ if sys.stdout is None or sys.stderr is None:
     sys.stdout = sys.stderr = open(_log, "a", encoding="utf-8", buffering=1)
 
 import talentai  # noqa: F401  (configura el entorno antes de importar torch / Whisper)
-from PySide6.QtGui import QFont
+from pathlib import Path
+
+from PySide6.QtGui import QFont, QIcon
 from PySide6.QtWidgets import QApplication
 
 from talentai.estilo import QSS
@@ -23,7 +25,8 @@ from talentai.ventana import Ventana
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     app = QApplication(sys.argv)
-    app.setApplicationName("TalentAI")
+    app.setApplicationName("CV UP")
+    app.setWindowIcon(QIcon(str(Path(__file__).parent / "talentai" / "img" / "logo.ico")))
     app.setFont(QFont("Segoe UI", 10))
     app.setStyleSheet(QSS)
     v = Ventana()

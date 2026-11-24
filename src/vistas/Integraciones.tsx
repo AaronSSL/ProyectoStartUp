@@ -52,7 +52,7 @@ export function Integraciones({ empresa, onGuardar }: { empresa: Empresa; onGuar
         <h2 className="fila"><Plug size={18} />Cómo funciona la integración</h2>
         <ol className="pasos">
           <li>Solicitas la integración desde esta página con los datos de tu cuenta en el portal.</li>
-          <li>Soporte técnico de Palomar Talent se comunica contigo para validar el acceso a la cuenta de empresa del portal.</li>
+          <li>Soporte técnico de CV UP se comunica contigo para validar el acceso a la cuenta de empresa del portal.</li>
           <li>Configuramos la extracción de tus avisos y postulaciones, y la frecuencia de actualización (por ejemplo, cada noche).</li>
           <li>Los postulantes llegan solos a cada convocatoria, listos para el análisis de CV.</li>
         </ol>

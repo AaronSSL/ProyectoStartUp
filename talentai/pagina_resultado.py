@@ -65,7 +65,7 @@ class PaginaResultado(QWidget):
         h.setSectionResizeMode(7, QHeaderView.Stretch)
         self.tabla.itemChanged.connect(self._nota)
         c2.addWidget(self.tabla, 1)
-        aviso = QLabel("Modo copiloto: TalentAI ordena y explica; la decisión de quién avanza la toma y registra el "
+        aviso = QLabel("Modo copiloto: CV UP ordena y explica; la decisión de quién avanza la toma y registra el "
                        "reclutador. Cada puntaje se puede rastrear hasta su evidencia en las Partes 1 y 2.")
         aviso.setObjectName("aviso")
         aviso.setWordWrap(True)

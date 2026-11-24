@@ -136,7 +136,7 @@ class ProyectoTest(unittest.TestCase):
 
 
 class SupabaseTest(unittest.TestCase):
-    """Conversión de filas de Supabase (sintéticas) a la sesión de TalentAI; no se conecta a la red."""
+    """Conversión de filas de Supabase (sintéticas) a la sesión de CV UP; no se conecta a la red."""
     AVISO = {"aviso_id": "999", "titulo": "Analista", "criterios_version": "Bumeran abc",
              "criterios": [{"label": "Experiencia en cobranzas", "weightPct": 60}, {"label": "Excel", "weightPct": 40}]}
     POST = [{"clave": "k1", "id_postulante": "aperez123", "nombre": "ANA", "apellido": "PÉREZ",

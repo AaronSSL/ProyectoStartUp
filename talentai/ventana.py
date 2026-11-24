@@ -2,6 +2,7 @@
 from pathlib import Path
 
 from PySide6.QtCore import Qt, QTimer
+from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (QFileDialog, QFrame, QHBoxLayout, QLabel, QMainWindow, QMessageBox, QPushButton,
                                QStackedWidget, QVBoxLayout, QWidget)
 
@@ -17,7 +18,7 @@ SESION = RAIZ / "datos" / "sesion.json"
 class Ventana(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("TalentAI · Selección explicable")
+        self.setWindowTitle("CV UP · Selección explicable")
         self.resize(1360, 860)
         self.ruta_sesion = SESION
         self.proyecto = self._abrir_inicial()
@@ -53,9 +54,14 @@ class Ventana(QMainWindow):
         f.setObjectName("cabecera")
         fila = QHBoxLayout(f)
         fila.setContentsMargins(20, 10, 20, 10)
+        logo = QLabel()
+        logo.setPixmap(QPixmap(str(Path(__file__).parent / "img" / "logo.png")).scaled(
+            44, 44, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        fila.addWidget(logo)
+        fila.addSpacing(10)
         marca = QVBoxLayout()
         marca.setSpacing(0)
-        t = QLabel("TalentAI")
+        t = QLabel("CV UP")
         t.setObjectName("marca")
         s = QLabel("Selección de personal explicable · versión de escritorio")
         s.setObjectName("marcaSub")
@@ -166,7 +172,7 @@ class Ventana(QMainWindow):
         self._cambio()
 
     def abrir(self):
-        ruta, _ = QFileDialog.getOpenFileName(self, "Abrir sesión", str(SESION.parent), "Sesión TalentAI (*.json)")
+        ruta, _ = QFileDialog.getOpenFileName(self, "Abrir sesión", str(SESION.parent), "Sesión CV UP (*.json)")
         if not ruta:
             return
         try:
@@ -181,7 +187,7 @@ class Ventana(QMainWindow):
 
     def guardar_como(self):
         ruta, _ = QFileDialog.getSaveFileName(self, "Guardar sesión", str(SESION.parent / "sesion.json"),
-                                              "Sesión TalentAI (*.json)")
+                                              "Sesión CV UP (*.json)")
         if ruta:
             self.ruta_sesion = Path(ruta)
             self.guardar()

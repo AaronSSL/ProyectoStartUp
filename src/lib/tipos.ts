@@ -1,4 +1,4 @@
-// Modelo de datos de Palomar Talent. Todo vive en el navegador de cada empresa (IndexedDB, ver almacen.ts).
+// Modelo de datos de CV UP. Todo vive en el navegador de cada empresa (IndexedDB, ver almacen.ts).
 
 export type Portal = 'linkedin' | 'bumeran' | 'computrabajo';
 
