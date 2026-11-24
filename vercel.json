@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "ONNXRUNTIME_NODE_INSTALL_CUDA=skip npm ci"
+}

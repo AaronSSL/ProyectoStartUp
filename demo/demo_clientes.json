@@ -1,0 +1,108 @@
+{
+  "nota_datos": "Valores aproximados estimados por el equipo a partir de lo que reportó cada usuario. Se reemplazarán por datos medidos.",
+  "metricas": [
+    {"id": "tiempo_criba", "nombre": "Tiempo de criba", "unidad": "horas", "mejor": "menor"},
+    {"id": "cvs_revisados", "nombre": "CVs revisados", "unidad": "%", "mejor": "mayor"},
+    {"id": "tiempo_terna", "nombre": "Tiempo hasta la terna", "unidad": "días", "mejor": "menor"},
+    {"id": "postulantes_respuesta", "nombre": "Postulantes con respuesta", "unidad": "%", "mejor": "mayor"},
+    {"id": "brecha_equidad", "nombre": "Brecha de equidad entre grupos", "unidad": "puntos", "mejor": "menor"},
+    {"id": "satisfaccion", "nombre": "Satisfacción del reclutador", "unidad": "1-5", "mejor": "mayor"}
+  ],
+  "clientes": [
+    {
+      "id": "byr", "nombre": "B y R Repostería", "sector": "Pyme · alimentos", "estado_uso": "Uso completo",
+      "contacto": {"nombre": "Ruben Ruiz", "cargo": "Director Comercial"},
+      "cita": "Me sirvió.",
+      "metricas": {
+        "tiempo_criba": {"antes": 6, "despues": 1},
+        "cvs_revisados": {"antes": 60, "despues": 100},
+        "tiempo_terna": {"antes": 7, "despues": 3},
+        "postulantes_respuesta": {"antes": 20, "despues": 100},
+        "brecha_equidad": null,
+        "satisfaccion": {"antes": null, "despues": 4}
+      },
+      "coincidencia_terna": "2 de 3",
+      "publicaciones": [
+        {"id": "byr-1", "puesto": "Ayudante de pastelería", "bolsa": "Computrabajo", "postulantes": 64,
+         "ranking": [
+           {"candidato": "Candidato 007", "puntaje": 90, "por_que": "2 años en pastelería, manejo de BPM"},
+           {"candidato": "Candidato 021", "puntaje": 84, "por_que": "Curso técnico en panadería"},
+           {"candidato": "Candidato 015", "puntaje": 79, "por_que": "Experiencia en atención y caja"}
+         ]}
+      ]
+    },
+    {
+      "id": "zytrust", "nombre": "Zytrust", "sector": "Tecnología · seguridad digital", "estado_uso": "Uso parcial",
+      "contacto": {"nombre": "Antony Mendonza Montes", "cargo": "Auxiliar de Recursos Humanos"},
+      "cita": "No lo usé tanto.",
+      "metricas": {
+        "tiempo_criba": {"antes": 10, "despues": 6},
+        "cvs_revisados": {"antes": 50, "despues": 80},
+        "tiempo_terna": {"antes": 10, "despues": 8},
+        "postulantes_respuesta": {"antes": 30, "despues": 60},
+        "brecha_equidad": null,
+        "satisfaccion": {"antes": null, "despues": 3}
+      },
+      "coincidencia_terna": "1 de 2",
+      "publicaciones": [
+        {"id": "zy-1", "puesto": "Desarrollador Backend", "bolsa": "LinkedIn", "postulantes": 143,
+         "ranking": [
+           {"candidato": "Candidato 032", "puntaje": 87, "por_que": "Java y microservicios, 3 años"},
+           {"candidato": "Candidato 104", "puntaje": 82, "por_que": "Node.js, certificación AWS"},
+           {"candidato": "Candidato 058", "puntaje": 76, "por_que": "Python, prácticas en fintech"}
+         ]}
+      ]
+    },
+    {
+      "id": "intercorp", "nombre": "Intercorp", "sector": "Grupo empresarial", "estado_uso": "Uso completo",
+      "contacto": {"nombre": "Josué Méndez", "cargo": "Asistente de GTH"},
+      "cita": "Muy útil. He usado el piloto de su sistema y me sería útil en mi día a día.",
+      "metricas": {
+        "tiempo_criba": {"antes": 20, "despues": 2},
+        "cvs_revisados": {"antes": 35, "despues": 100},
+        "tiempo_terna": {"antes": 12, "despues": 4},
+        "postulantes_respuesta": {"antes": 15, "despues": 100},
+        "brecha_equidad": {"antes": 15, "despues": 4},
+        "satisfaccion": {"antes": null, "despues": 5}
+      },
+      "coincidencia_terna": "8 de 10",
+      "publicaciones": [
+        {"id": "ic-1", "puesto": "Analista de Datos Jr.", "bolsa": "Bumeran", "postulantes": 412,
+         "ranking": [
+           {"candidato": "Candidato 014", "puntaje": 92, "por_que": "SQL y Python, 2 años en análisis"},
+           {"candidato": "Candidato 207", "puntaje": 88, "por_que": "Power BI avanzado, prácticas en banca"},
+           {"candidato": "Candidato 031", "puntaje": 85, "por_que": "Estadística, proyecto de ML propio"},
+           {"candidato": "Candidato 118", "puntaje": 81, "por_que": "Excel avanzado, 1 año en retail"}
+         ]},
+        {"id": "ic-2", "puesto": "Ejecutivo de Ventas", "bolsa": "LinkedIn", "postulantes": 875,
+         "ranking": [
+           {"candidato": "Candidato 402", "puntaje": 89, "por_que": "3 años en venta consultiva B2B"},
+           {"candidato": "Candidato 233", "puntaje": 84, "por_que": "Cumplimiento de metas en retail"},
+           {"candidato": "Candidato 519", "puntaje": 80, "por_que": "Manejo de CRM, inglés intermedio"}
+         ]}
+      ]
+    },
+    {
+      "id": "ate", "nombre": "Municipalidad de Ate", "sector": "Sector público", "estado_uso": "Uso completo",
+      "contacto": {"nombre": "André Albemgrim", "cargo": "Asistente de Recursos Humanos"},
+      "cita": "Me sirvió mucho.",
+      "metricas": {
+        "tiempo_criba": {"antes": 25, "despues": 3},
+        "cvs_revisados": {"antes": 30, "despues": 100},
+        "tiempo_terna": {"antes": 15, "despues": 5},
+        "postulantes_respuesta": {"antes": 10, "despues": 100},
+        "brecha_equidad": {"antes": 14, "despues": 5},
+        "satisfaccion": {"antes": null, "despues": 5}
+      },
+      "coincidencia_terna": "6 de 8",
+      "publicaciones": [
+        {"id": "ate-1", "puesto": "Asistente Administrativo", "bolsa": "Computrabajo", "postulantes": 238,
+         "ranking": [
+           {"candidato": "Candidato 077", "puntaje": 90, "por_que": "Gestión documentaria, 3 años en sector público"},
+           {"candidato": "Candidato 145", "puntaje": 86, "por_que": "Ofimática avanzada, atención al ciudadano"},
+           {"candidato": "Candidato 012", "puntaje": 82, "por_que": "Técnico en administración, SIGA"}
+         ]}
+      ]
+    }
+  ]
+}

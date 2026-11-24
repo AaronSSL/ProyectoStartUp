@@ -32,10 +32,26 @@ npm test           # pruebas de la lógica (vitest)
 npm run build      # versión de producción en dist/
 ```
 
+## Modo demo (Demo Day)
+
+Muestra 4 clientes con datos inventados de `demo/demo_clientes.json`: selector de clientes, publicaciones con su
+ranking, métricas «antes → con CV UP» y una comparativa. Se activa con la variable de entorno `DEMO_MODE=true`:
+
+```
+npm run demo         # modo demo en http://localhost:5173 (lee .env.demo, que trae DEMO_MODE=true)
+npm run build:demo   # versión de producción en modo demo
+```
+
+- En modo demo la app no abre la base del navegador: todo sale del JSON y «Pasar a 2ª ronda» solo cambia el estado en memoria.
+- Con `DEMO_MODE=false` o sin la variable, la app funciona igual que siempre y el JSON ni siquiera entra en el paquete.
+- Todas las pantallas llevan la etiqueta «DEMO · datos de demostración».
+
 ## Despliegue en Vercel
 
 Proyecto Vite estático: *Framework preset* «Vite», *Build command* `npm run build`, *Output directory* `dist`.
-No necesita variables de entorno.
+`vercel.json` instala con `ONNXRUNTIME_NODE_INSTALL_CUDA=skip npm ci`: `onnxruntime-node` (dependencia de
+`@huggingface/transformers`, que la web no usa) intentaba bajar binarios CUDA en Linux y fallaba con 404.
+Para publicar el modo demo, agrega la variable de entorno `DEMO_MODE=true` en el proyecto de Vercel.
 
 ## Estructura (web)
 
